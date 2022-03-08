@@ -8,6 +8,7 @@ namespace Data.Accessors.Contracts
         Task AddAsync(TModel item);
         Task DeleteAsync(Guid id);
         Task<TModel> FindAsync(Expression<Func<TModel, Boolean>> filter);
+        Task<IList<TModel>> GetAsync();
         Task<IList<TModel>> GetAsync(Expression<Func<TModel, Boolean>> filter);
         Task UpdateAsync(Guid id, TModel item);
     }

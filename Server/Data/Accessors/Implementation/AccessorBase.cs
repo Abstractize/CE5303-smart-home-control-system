@@ -33,8 +33,12 @@ namespace Data.Accessors.Implementation
                 .Where(filter)
                 .FirstOrDefaultAsync();
         }
-
-        public virtual async Task<IList<TModel>> GetAsync(Expression<Func<TModel, Boolean>> filter)
+        public virtual async Task<IList<TModel>> GetAsync()
+        {
+            return await _data.AsNoTracking()
+                .ToListAsync();
+        }
+        public virtual async Task<IList<TModel>> GetAsync(Expression<Func<TModel, Boolean>> filter = null)
         {
             return await _data.AsNoTracking()
                 .Where(filter)

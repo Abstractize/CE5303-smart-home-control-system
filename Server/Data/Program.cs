@@ -1,4 +1,4 @@
-﻿using Data.Context;
+using Data.Context;
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -37,6 +37,8 @@ public static class Program
     }
     public static IServiceCollection AddAccessors(this IServiceCollection services)
     {
+        services.AddScoped<IPhotoAccessor, PhotoAccessor>();
+
         return services;
     }
     public static IServiceProvider AddMigrationAndSeed(this IServiceProvider services)
