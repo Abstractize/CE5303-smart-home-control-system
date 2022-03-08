@@ -1,7 +1,4 @@
-# Compile C lib
-cd ./HardwareController
-cmake --build "./build" --config Release --target all -j 10 --
-cd ../API
+cd ./API
 
-dotnet restore
-dotnet publish -r linux-arm
+dotnet restore -r linux-arm --self-contained false
+dotnet publish -r linux-arm --self-contained false
