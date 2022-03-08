@@ -16,17 +16,35 @@ namespace Services.Implementation
         [DllImport("libHardwareController")]
         static extern int digitalRead(int pin);
 
-        public Task<String?> setPin(int pin)
+
+        public Task<int> EnablePin(int pin)
         {
-            // IntPtr helloPtr = GetHello();
-            // String? hello = Marshal.PtrToStringAnsi(helloPtr);
-            // return Task.FromResult(hello);
+            int _enablePin = enablePin(pin);
+            return Task.FromResult(_enablePin);
         }
 
-        public Task SayHello()
+        public Task<int> DisablePin(int pin)
         {
-            // int hello = PrintHello();
-            // return Task.FromResult(hello);
+            int _disablePin = disablePin(pin);
+            return Task.FromResult(_disablePin);
+        }
+
+        public Task<int> PinMode(int pin, string mode)
+        {
+            int _pinMode = pinMode(pin, mode);
+            return Task.FromResult(_pinMode);
+        }
+
+        public Task<int> DigitalWrite(int pin, int value)
+        {
+            int _digitalWrite = digitalWrite(pin, value);
+            return Task.FromResult(_digitalWrite);
+        }
+
+        public Task<int> DigitalRead(int pin)
+        {
+            int _digitalRead = digitalRead(pin);
+            return Task.FromResult(_digitalRead);
         }
     }
 }
