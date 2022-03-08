@@ -5,10 +5,11 @@ namespace Services.Implementation
 {
     public class HardwareService : IHardwareService
     {
-        [DllImport("libHardwareController")]
+        private const String LIBRARY_NAME = "libHardwareController";
+        [DllImport(LIBRARY_NAME)]
         static extern IntPtr GetHello();
-        [DllImport("libHardwareController")]
-        static extern int PrintHello();
+        [DllImport(LIBRARY_NAME)]
+        static extern void PrintHello();
 
         public Task<String?> GetHelloAsync()
         {
@@ -19,8 +20,8 @@ namespace Services.Implementation
 
         public Task SayHello()
         {
-            int hello = PrintHello();
-            return Task.FromResult(hello);
+            PrintHello();
+            return Task.FromResult(0);
         }
     }
 }

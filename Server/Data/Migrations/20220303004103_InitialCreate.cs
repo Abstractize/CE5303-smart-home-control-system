@@ -174,7 +174,7 @@ namespace Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Ligth",
+                name: "Light",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
@@ -183,9 +183,9 @@ namespace Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Ligth", x => x.Id);
+                    table.PrimaryKey("PK_Light", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Ligth_Room_RoomId",
+                        name: "FK_Light_Room_RoomId",
                         column: x => x.RoomId,
                         principalTable: "Room",
                         principalColumn: "Id",
@@ -319,8 +319,8 @@ namespace Data.Migrations
                 column: "Use");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ligth_RoomId",
-                table: "Ligth",
+                name: "IX_Light_RoomId",
+                table: "Light",
                 column: "RoomId",
                 unique: true);
 
@@ -391,7 +391,7 @@ namespace Data.Migrations
                 name: "Keys");
 
             migrationBuilder.DropTable(
-                name: "Ligth");
+                name: "Light");
 
             migrationBuilder.DropTable(
                 name: "PersistedGrants");

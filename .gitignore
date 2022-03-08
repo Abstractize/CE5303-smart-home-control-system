@@ -1,0 +1,5 @@
+*.sqlite
+
+*.db-shm
+
+*.db-wal

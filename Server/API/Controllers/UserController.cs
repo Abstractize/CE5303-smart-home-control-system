@@ -10,7 +10,7 @@ namespace API.Controllers
     public class UserController : ControllerBase
     {
         [HttpGet("id")]
-        public Task<User> Get(Guid id) => null;
-
+        public Task<User> Get(Guid id) 
+            => throw new NotImplementedException();
     }
 }

@@ -11,7 +11,7 @@ namespace Data.Migrations
         internal static MigrationBuilder SeedInitialData(this MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddUserData(new Dictionary<User, String>(){
-                { new User { Name = "Juanito", Email = "email@email.com" }, "password" } 
+                { new User { Name = "Juanito", Email = "email@email.com" }, "password" }
             });
             
             return migrationBuilder;

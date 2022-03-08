@@ -1,13 +1,15 @@
 ﻿using Data.Models;
+using System.Linq.Expressions;
 
 namespace Data.Accessors.Contracts
 {
-    public interface IAccessorBase<T> where T : Model
+    public interface IAccessorBase<TModel> where TModel : Model
     {
-        Task AddAsync(T item);
+        Task AddAsync(TModel item);
         Task DeleteAsync(Guid id);
-        Task<T> FindAsync(Guid id);
-        Task<IList<T>> GetAsync();
-        Task UpdateAsync(Guid id, T item);
+        Task<TModel> FindAsync(Expression<Func<TModel, Boolean>> filter);
+        Task<IList<TModel>> GetAsync();
+        Task<IList<TModel>> GetAsync(Expression<Func<TModel, Boolean>> filter);
+        Task UpdateAsync(Guid id, TModel item);
     }
 }

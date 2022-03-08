@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnectionString");
 
-builder.Services.AddDatabase<Services.Implementation.AuthService>(connectionString);
+builder.Services.AddDatabase(connectionString);
 builder.Services.AddAccessors();
 builder.Services.AddServices();
 builder.Services.AddManagers();

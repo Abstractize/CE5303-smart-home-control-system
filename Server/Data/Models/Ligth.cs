@@ -2,8 +2,8 @@
 
 namespace Data.Models
 {
-    [Table("Ligth")]
-    public class Ligth : Model
+    [Table("Light")]
+    public class Light : Model
     {
         [ForeignKey("Room")]
         public Guid RoomId { get; set; }
