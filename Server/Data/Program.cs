@@ -6,10 +6,11 @@ using Microsoft.AspNetCore.Authentication;
 using Data.Accessors.Contracts;
 using Data.Accessors.Implementation;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 public static class Program
 {
-    public static IServiceCollection AddDatabase<TAuth>(this IServiceCollection services, String? connectionString = null) where TAuth : UserManager<User>
+    public static IServiceCollection AddDatabase(this IServiceCollection services, String connectionString = null)
     {
         if (String.IsNullOrEmpty(connectionString))
             throw new ArgumentNullException(nameof(connectionString));
@@ -27,7 +28,6 @@ public static class Program
             options.Password.RequireUppercase = false;
             options.User.RequireUniqueEmail = true;
         }).AddEntityFrameworkStores<HomeContext>()
-        .AddUserManager<TAuth>()
         .AddDefaultTokenProviders();
 
         services.AddIdentityServer()
@@ -37,15 +37,13 @@ public static class Program
     }
     public static IServiceCollection AddAccessors(this IServiceCollection services)
     {
-        services.AddScoped<IUserAccessor, UserAccessor>();
-
         return services;
     }
     public static IServiceProvider AddMigrationAndSeed(this IServiceProvider services)
     {
         using (var scope = services.CreateScope())
         {
-            var database = scope.ServiceProvider.GetService<HomeContext>().Database;
+            DatabaseFacade database = scope.ServiceProvider.GetService<HomeContext>().Database;
             if (database.IsRelational())
                 database.Migrate();
         }

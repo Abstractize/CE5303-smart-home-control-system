@@ -8,18 +8,18 @@ namespace API.Controllers
     [ApiController]
     public class HelloHardwareController : ControllerBase
     {
-        private readonly IHelloHarwareManager _helloHarwareManager;
+        private readonly IHelloHardwareManager _helloHardwareManager;
 
-        public HelloHardwareController(IHelloHarwareManager helloHarwareManager)
+        public HelloHardwareController(IHelloHardwareManager helloHardwareManager)
         {
-            _helloHarwareManager = helloHarwareManager;
+            _helloHardwareManager = helloHardwareManager;
         }
 
         [HttpGet]
-        public Task<String> Get() 
-            => _helloHarwareManager.GetHelloWorldAsync();
+        public Task<String?> Get() 
+            => _helloHardwareManager.GetHelloWorldAsync();
         [HttpPost]
         public Task Post() 
-            => _helloHarwareManager.PrintHelloWorldAsync();
+            => _helloHardwareManager.PrintHelloWorldAsync();
     }
 }

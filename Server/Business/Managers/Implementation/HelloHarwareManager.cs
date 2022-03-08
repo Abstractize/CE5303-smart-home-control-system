@@ -3,19 +3,19 @@ using Services.Contracts;
 
 namespace Business.Managers.Implementation
 {
-    public class HelloHarwareManager : IHelloHarwareManager
+    public class HelloHardwareManager : IHelloHardwareManager
     {
-        private readonly IHardwareService _hardewareService;
+        private readonly IHardwareService _hardwareService;
 
-        public HelloHarwareManager(IHardwareService hardewareService)
+        public HelloHardwareManager(IHardwareService hardwareService)
         {
-            _hardewareService = hardewareService;
+            _hardwareService = hardwareService;
         }
 
-        public async Task<String> GetHelloWorldAsync()
-            => await _hardewareService.GetHelloAsync();
+        public async Task<String?> GetHelloWorldAsync()
+            => await _hardwareService.GetHelloAsync();
 
         public async Task PrintHelloWorldAsync()
-            => await _hardewareService.SayHello();
+            => await _hardwareService.SayHello();
     }
 }

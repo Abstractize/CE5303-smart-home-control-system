@@ -7,7 +7,7 @@ public static class Program
     public static IServiceCollection AddManagers(this IServiceCollection services)
     {
         services.AddScoped<IAuthManager, AuthManager>();
-        services.AddScoped<IHelloHarwareManager, HelloHarwareManager>();
+        services.AddScoped<IHelloHardwareManager, HelloHardwareManager>();
 
         return services;
     }

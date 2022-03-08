@@ -1,9 +1,8 @@
-﻿
-namespace Business.Managers.Contracts
+﻿namespace Business.Managers.Contracts
 {
-    public interface IHelloHarwareManager
+    public interface IHelloHardwareManager
     {
-        Task<string> GetHelloWorldAsync();
+        Task<String?> GetHelloWorldAsync();
         Task PrintHelloWorldAsync();
     }
 }

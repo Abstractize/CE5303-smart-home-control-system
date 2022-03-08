@@ -14,7 +14,7 @@ namespace Data.Context
             : base(options, operationalStoreOptions) { }
 
         public virtual DbSet<Photo> Photos { get; set; }
-        public virtual DbSet<Ligth> Ligths { get; set; }
+        public virtual DbSet<Light> Lights { get; set; }
         public virtual DbSet<Door> Doors { get; set; }
         public virtual DbSet<Room> Rooms { get; set; }
 
