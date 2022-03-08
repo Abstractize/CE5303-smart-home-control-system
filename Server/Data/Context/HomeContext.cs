@@ -1,7 +1,5 @@
 ﻿using Data.Models;
 using Duende.IdentityServer.EntityFramework.Options;
-using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Options;
@@ -28,7 +26,7 @@ namespace Data.Context
     }
     public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<HomeContext>
     {
-        private const String CONNECTION_STRING = "Filename=../API/Data/HomeDB.db";
+        private const String CONNECTION_STRING = "Filename=../API/Data/HomeDB.sqlite";
         public HomeContext CreateDbContext(string[] args)
         {
             var builder = new DbContextOptionsBuilder<HomeContext>();
