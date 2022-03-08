@@ -1,4 +1,6 @@
-﻿using Data.Models;
+﻿using System.Collections.Generic;
+using System;
+using Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Migrations;
 using System.Reflection;
@@ -19,6 +21,49 @@ namespace Data.Migrations
 
         internal static MigrationBuilder AddData(this MigrationBuilder migrationBuilder, Model data)
             => migrationBuilder.AddObjectData(data);
+        internal static MigrationBuilder AddRoom(this MigrationBuilder migrationBuilder, String roomName, int lightPin, Boolean hasDoor = false, int doorPin = 0)
+        {
+            Room room = new Room
+            {
+                Id = Guid.NewGuid(),
+                Name = roomName,
+            };
+
+            Light light = new Light
+            {
+                Id = Guid.NewGuid(),
+                Pin = lightPin,
+                RoomId = room.Id,
+                Room = room
+            };
+
+            room.Light = light;
+
+            migrationBuilder.AddData(new Model[]
+            {
+                room,
+                light,
+
+            });
+
+            if (hasDoor)
+            {
+                Door door = new Door
+                {
+                    Id = Guid.NewGuid(),
+                    Pin = doorPin,
+                    RoomId = room.Id,
+                    Room = room
+                };
+
+                room.Doors.Add(door);
+
+                migrationBuilder.AddData(door);
+            }
+
+            return migrationBuilder;
+        }
+
         internal static MigrationBuilder AddUserData(this MigrationBuilder migrationBuilder, Dictionary<User, String> data)
         {
             var normalizer = new UpperInvariantLookupNormalizer();
@@ -48,18 +93,37 @@ namespace Data.Migrations
             Type modelType = data.GetType();
             PropertyInfo[] properties = modelType.GetProperties();
 
-            String[] names = new String[properties.Length];
-            Object[] values = new Object[properties.Length];
+            List<String> names = new List<String>();
+            List<Object> values = new List<Object>();
 
             for (int i = 0; i < properties.Length; i++)
             {
-                names[i] = properties[i].Name;
-                values[i] = properties[i].GetValue(data, null);
+                if(isModelType(properties[i].PropertyType))
+                    continue;
+
+                names.Add(properties[i].Name);
+                values.Add(properties[i].GetValue(data, null));
             }
 
-            migrationBuilder.InsertData(modelType.Name, names, values);
+            migrationBuilder.InsertData(
+                modelType.Name, 
+                names.ToArray(), 
+                values.ToArray()
+            );
 
             return migrationBuilder;
+        }
+
+        private static Boolean isModelType(this Type prop)
+        {
+            if(prop.IsSubclassOf(typeof(Model)))
+                return true;
+
+            if (prop.GenericTypeArguments.Length > 0)
+                return prop.GenericTypeArguments.ToList().Select(type => 
+                    type.IsSubclassOf(typeof(Model))).Contains(true);
+
+            return false;
         }
     }
 }

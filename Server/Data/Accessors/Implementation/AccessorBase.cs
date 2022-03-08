@@ -22,7 +22,7 @@ namespace Data.Accessors.Implementation
             await _context.SaveChangesAsync();
         }
 
-        public virtual async Task DeleteAsync(Guid id)
+        public virtual Task DeleteAsync(Guid id)
         {
             throw new NotImplementedException();
         }
