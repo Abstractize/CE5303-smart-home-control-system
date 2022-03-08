@@ -1,8 +1,5 @@
-# Compile C lib
-cd ./HardwareController
-cmake --build "./build" --config Debug --target all -j 10 --
-cd ../API
+cd ./API
 
-dotnet restore
-dotnet build
-dotnet run
+dotnet restore -r linux-x64 --self-contained false
+dotnet build -r linux-x64 --self-contained false
+dotnet run -r linux-x64 --self-contained false

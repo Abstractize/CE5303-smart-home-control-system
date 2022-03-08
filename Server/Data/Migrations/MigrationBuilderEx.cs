@@ -21,17 +21,21 @@ namespace Data.Migrations
             => migrationBuilder.AddObjectData(data);
         internal static MigrationBuilder AddUserData(this MigrationBuilder migrationBuilder, Dictionary<User, String> data)
         {
+            var normalizer = new UpperInvariantLookupNormalizer();
+
             foreach (var item in data)
             {
                 User model = item.Key;
 
                 model.Id = Guid.NewGuid();
                 model.UserName = model.Email;
-                model.NormalizedUserName = model.Email.Normalize();
+                model.NormalizedEmail = normalizer.NormalizeEmail(model.Email);
+                model.NormalizedUserName = normalizer.NormalizeName(model.Email);
                 model.PasswordHash = new PasswordHasher<User>()
                     .HashPassword(model, item.Value);
                 model.SecurityStamp = Guid.NewGuid().ToString();
                 model.ConcurrencyStamp = Guid.NewGuid().ToString();
+                model.LockoutEnabled = true;
 
                 migrationBuilder.AddObjectData(model);
             }

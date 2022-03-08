@@ -23,7 +23,6 @@ namespace API.Controllers
             => _authorizationManager.LogInAsync(userInfo);
 
         [HttpDelete]
-        [AllowAnonymous]
         public Task Delete(User userInfo)
             => _authorizationManager.LogOutAsync(userInfo); 
     }

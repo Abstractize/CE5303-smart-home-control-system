@@ -10,7 +10,6 @@ namespace Business.Managers.Implementation
     public class AuthManager : IAuthManager
     {
         private readonly IAuthService _authService;
-
         public AuthManager(IAuthService authService)
         {
             _authService = authService;
@@ -23,11 +22,11 @@ namespace Business.Managers.Implementation
 
             if (user == null)
                 throw new Exception($"Email {userInfo.Email} not found");
-            /*
+
             SignInResult result = await _authService
                 .CheckPasswordSignInAsync(user, userInfo.Password);
-            */
-            if (true) //result.Succeeded)
+
+            if (result.Succeeded)
                 return new User().LoadFrom(user);
 
             throw new Exception($"Incorrect Password");
