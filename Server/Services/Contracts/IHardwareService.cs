@@ -5,5 +5,6 @@ namespace Services.Contracts
     {
         Task<String?> GetHelloAsync();
         Task SayHello();
+        Task<Boolean> IsDoorOpen(int pin);
     }
 }

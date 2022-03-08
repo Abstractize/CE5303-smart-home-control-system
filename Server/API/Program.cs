@@ -9,6 +9,7 @@ builder.Services.AddAccessors();
 builder.Services.AddServices();
 builder.Services.AddManagers();
 builder.Services.AddControllers();
+builder.Services.AddSignalR();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(
