@@ -793,9 +793,14 @@ obj/
 *.accdb
 *.db
 *.dbf
+*.db-shm
+*.db-wal
 *.mdb
 *.pdb
 *.sqlite3
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
 
 ### DataRecovery ###
 
