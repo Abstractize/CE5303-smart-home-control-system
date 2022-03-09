@@ -7,6 +7,7 @@ import { actionCreator as authActionCreators } from '../store/action-creators/au
 const Login = (props) => {
    const [email, onChangeEmail] = React.useState();
    const [password, onChangePassword] = React.useState();
+   
    return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
          <Text>Login Screen</Text>
@@ -14,11 +15,11 @@ const Login = (props) => {
          <Input placeholder="Password" onValueEntered={onChangePassword}/>
          {props.isLoading ? <Text>Loading...</Text>
          : <Button title='GO!' onPress={() => 
-            props.login({email: email, password: password}, 
+            props.login({email: email, password: password},
             props.navigation)} />}
       </View>
    )
 }
-export default connect(state => ({...state.auth}),
-({...authActionCreators}))
-(Login);
+export default connect(
+   state => ({...state.auth}), ({...authActionCreators})
+)(Login);

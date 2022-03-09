@@ -9,6 +9,6 @@ namespace Data.Models
         [Required]
         public String Name { get; set; }
         public Light Light { get; set; }
-        public List<Door> Doors { get; set; }
+        public List<Door> Doors { get; set; } = new List<Door>();
     }
 }

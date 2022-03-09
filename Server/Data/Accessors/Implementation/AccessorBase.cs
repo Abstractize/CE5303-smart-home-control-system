@@ -1,4 +1,5 @@
 ﻿using Data.Accessors.Contracts;
+using Data.Context;
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
@@ -7,10 +8,10 @@ namespace Data.Accessors.Implementation
 {
     public class AccessorBase<TModel> : IAccessorBase<TModel> where TModel : Model
     {
-        private readonly DbContext _context;
-        private readonly DbSet<TModel> _data;
+        protected readonly HomeContext _context;
+        protected readonly DbSet<TModel> _data;
 
-        public AccessorBase(DbSet<TModel> data, DbContext context)
+        public AccessorBase(DbSet<TModel> data, HomeContext context)
         {
             this._context = context;
             this._data = data;
@@ -22,7 +23,7 @@ namespace Data.Accessors.Implementation
             await _context.SaveChangesAsync();
         }
 
-        public virtual async Task DeleteAsync(Guid id)
+        public virtual Task DeleteAsync(Guid id)
         {
             throw new NotImplementedException();
         }

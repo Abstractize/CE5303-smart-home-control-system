@@ -11,6 +11,12 @@ namespace Services.Implementation
         [DllImport(LIBRARY_NAME)]
         static extern void PrintHello();
 
+        public Task<Boolean> IsDoorOpen(int pin)
+        {
+            Random random = new Random();
+            return Task.FromResult(random.Next(2) == 1);
+        }
+
         public Task<String?> GetHelloAsync()
         {
             IntPtr helloPtr = GetHello();

@@ -1,5 +1,5 @@
-import { authService } from '../../services/services/auth-service';
-import { AuthActionType } from '../action-types/auth-action-types';
+import { authService } from '../../services/auth-service';
+import { AuthActionType } from '../actions/auth-actions';
 
 export const actionCreator = {
     login: (loginValue, navigation) => async (dispatch, getState) => {

@@ -42,6 +42,8 @@ public static class Program
     }
     public static IServiceCollection AddAccessors(this IServiceCollection services)
     {
+        services.AddScoped<IDoorAccessor, DoorAccessor>();
+        services.AddScoped<ILightAccessor, LightAccessor>();
         services.AddScoped<IPhotoAccessor, PhotoAccessor>();
 
         return services;

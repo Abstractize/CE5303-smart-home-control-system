@@ -1,7 +1,7 @@
-import { Auth } from "./auth-state";
+import { state as door } from './door-state'
+import { state as auth } from "./auth-state";
 
-export class ApplicationState {
-    constructor(auth = new Auth()) {
-        this.auth = auth
-    }
-}
+export const state = {
+    door: door,
+    auth: auth
+};

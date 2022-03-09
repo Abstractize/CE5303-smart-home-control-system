@@ -6,8 +6,6 @@ namespace Data.Accessors.Implementation
 {
     public class PhotoAccessor : AccessorBase<Photo>, IPhotoAccessor
     {
-        public PhotoAccessor(HomeContext context) : base(context.Photos, context)
-        {
-        }
+        public PhotoAccessor(HomeContext context) : base(context.Photos, context) { }
     }
 }
