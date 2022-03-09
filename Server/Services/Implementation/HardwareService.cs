@@ -5,6 +5,12 @@ namespace Services.Implementation
 {
     public class HardwareService : IHardwareService
     {
+        public enum HardwareStatus
+        {
+            OFF = 0,
+            ON = 1,
+        }
+
         [DllImport("libHardwareController")]
         static extern int enablePin(int pin);
         [DllImport("libHardwareController")]
@@ -16,6 +22,18 @@ namespace Services.Implementation
         [DllImport("libHardwareController")]
         static extern int digitalRead(int pin);
 
+
+        public Task<Boolean> IsLightOn(int pin)
+        {
+            bool result = digitalRead(pin) == (int) HardwareStatus.ON;
+            return Task.FromResult(result);
+        }
+
+        public Task<int> SwitchLight(int pin, HardwareStatus value)
+        {
+            int result = digitalWrite(pin, (int) value);
+            return Task.FromResult(result);
+        }
 
         public Task<int> EnablePin(int pin)
 

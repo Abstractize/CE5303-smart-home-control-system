@@ -1,4 +1,5 @@
-﻿
+﻿using static Services.Implementation.HardwareService;
+
 namespace Services.Contracts
 {
     public interface IHardwareService
@@ -9,5 +10,7 @@ namespace Services.Contracts
         Task<int> DigitalWrite(int pin, int value);
         Task<int> DigitalRead(int pin);
         Task<Boolean> IsDoorOpen(int pin);
+        Task<Boolean> IsLightOn(int pin);
+        Task<int> SwitchLight(int pin, HardwareStatus value);
     }
 }
