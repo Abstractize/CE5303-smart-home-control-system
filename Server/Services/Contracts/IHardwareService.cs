@@ -8,5 +8,6 @@ namespace Services.Contracts
         Task<int> PinMode(int pin, string mode);
         Task<int> DigitalWrite(int pin, int value);
         Task<int> DigitalRead(int pin);
+        Task<Boolean> IsDoorOpen(int pin);
     }
 }

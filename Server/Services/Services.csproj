@@ -4,6 +4,13 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <!-- 
+        <PreBuildEvent>
+      cd ../../../../HardwareController
+      cmake build "./build" config Debug target all -j 10 -
+    </PreBuildEvent>
+    -->
+
   </PropertyGroup>
 
   <ItemGroup>

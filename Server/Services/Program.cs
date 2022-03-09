@@ -8,6 +8,7 @@ public static class Program
     {
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IHardwareService, HardwareService>();
+        services.AddScoped<ITimerService, TimerService>();
 
         return services;
     }

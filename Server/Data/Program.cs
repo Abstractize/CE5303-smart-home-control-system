@@ -1,4 +1,4 @@
-﻿using Data.Context;
+using Data.Context;
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -6,10 +6,11 @@ using Microsoft.AspNetCore.Authentication;
 using Data.Accessors.Contracts;
 using Data.Accessors.Implementation;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 public static class Program
 {
-    public static IServiceCollection AddDatabase<TAuth>(this IServiceCollection services, String? connectionString = null) where TAuth : UserManager<User>
+    public static IServiceCollection AddDatabase(this IServiceCollection services, String connectionString = null)
     {
         if (String.IsNullOrEmpty(connectionString))
             throw new ArgumentNullException(nameof(connectionString));
@@ -22,12 +23,16 @@ public static class Program
 
         services.AddIdentity<User, Role>(options =>
         {
+            options.SignIn.RequireConfirmedAccount = false;
+            options.SignIn.RequireConfirmedEmail = false;
+            options.SignIn.RequireConfirmedPhoneNumber = false;
+
             options.Password.RequireNonAlphanumeric = false;
             options.Password.RequireDigit = false;
             options.Password.RequireUppercase = false;
+            
             options.User.RequireUniqueEmail = true;
         }).AddEntityFrameworkStores<HomeContext>()
-        .AddUserManager<TAuth>()
         .AddDefaultTokenProviders();
 
         services.AddIdentityServer()
@@ -37,7 +42,9 @@ public static class Program
     }
     public static IServiceCollection AddAccessors(this IServiceCollection services)
     {
-        services.AddScoped<IUserAccessor, UserAccessor>();
+        services.AddScoped<IDoorAccessor, DoorAccessor>();
+        services.AddScoped<ILightAccessor, LightAccessor>();
+        services.AddScoped<IPhotoAccessor, PhotoAccessor>();
 
         return services;
     }
@@ -45,7 +52,7 @@ public static class Program
     {
         using (var scope = services.CreateScope())
         {
-            var database = scope.ServiceProvider.GetService<HomeContext>().Database;
+            DatabaseFacade database = scope.ServiceProvider.GetService<HomeContext>().Database;
             if (database.IsRelational())
                 database.Migrate();
         }

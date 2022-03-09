@@ -90,5 +90,7 @@ namespace Services.Contracts
         Task<IdentityResult> RedeemTwoFactorRecoveryCodeAsync(User user, String code);
         Task<Int32> CountRecoveryCodesAsync(User user);
         Task<Byte[]> CreateSecurityTokenAsync(User user);
+        Task<SignInResult> CheckPasswordSignInAsync(User user, string password, bool lockoutOnFailure = false);
+        Task SignOutAsync();
     }
 }

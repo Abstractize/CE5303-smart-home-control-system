@@ -1,27 +1,10 @@
-import { AuthActionType } from "../action-types/auth-action-types";
+export class AuthActionType {
+  static LOGIN = new AuthActionType("LOGIN");
+  static LOGOUT = new AuthActionType("LOGOUT");
+  static SUCCESS = new AuthActionType("SUCCESS");
+  static FAILURE = new AuthActionType("FAILURE");
 
-class AuthAction {
-    constructor(type){
-        this.type = type;
-    }
-}
-
-export class FailureAuthAction extends AuthAction {
-    constructor(error){
-        this.error = error;
-        super(AuthActionType.SUCCESS);
-    }
-}
-
-export class SuccessAuthAction extends AuthAction {
-    constructor(user){
-        this.user = user;
-        super(AuthActionType.SUCCESS);
-    }
-}
-
-export class LoginAuthAction extends AuthAction {
-    constructor(){
-        super(AuthActionType.SUCCESS);
-    }
+  constructor(name) {
+    this.name = name;
+  }
 }

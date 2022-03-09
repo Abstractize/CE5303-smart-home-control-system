@@ -18,6 +18,7 @@ namespace Services.Implementation
 
 
         public Task<int> EnablePin(int pin)
+
         {
             int _enablePin = enablePin(pin);
             return Task.FromResult(_enablePin);
@@ -46,5 +47,12 @@ namespace Services.Implementation
             int _digitalRead = digitalRead(pin);
             return Task.FromResult(_digitalRead);
         }
+        
+        public Task<Boolean> IsDoorOpen(int pin)
+        {
+            Random random = new Random();
+            return Task.FromResult(random.Next(2) == 1);
+        }
+        
     }
 }

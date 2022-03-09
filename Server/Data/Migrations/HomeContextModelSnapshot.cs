@@ -23,6 +23,9 @@ namespace Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Pin")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime?>("RemovedDate")
                         .HasColumnType("TEXT");
 
@@ -36,11 +39,14 @@ namespace Data.Migrations
                     b.ToTable("Door");
                 });
 
-            modelBuilder.Entity("Data.Models.Ligth", b =>
+            modelBuilder.Entity("Data.Models.Light", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("Pin")
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime?>("RemovedDate")
                         .HasColumnType("TEXT");
@@ -53,7 +59,7 @@ namespace Data.Migrations
                     b.HasIndex("RoomId")
                         .IsUnique();
 
-                    b.ToTable("Ligth");
+                    b.ToTable("Light");
                 });
 
             modelBuilder.Entity("Data.Models.Photo", b =>
@@ -441,11 +447,11 @@ namespace Data.Migrations
                     b.Navigation("Room");
                 });
 
-            modelBuilder.Entity("Data.Models.Ligth", b =>
+            modelBuilder.Entity("Data.Models.Light", b =>
                 {
                     b.HasOne("Data.Models.Room", "Room")
-                        .WithOne("Ligth")
-                        .HasForeignKey("Data.Models.Ligth", "RoomId")
+                        .WithOne("Light")
+                        .HasForeignKey("Data.Models.Light", "RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -507,7 +513,7 @@ namespace Data.Migrations
                 {
                     b.Navigation("Doors");
 
-                    b.Navigation("Ligth");
+                    b.Navigation("Light");
                 });
 #pragma warning restore 612, 618
         }
