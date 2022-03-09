@@ -20,8 +20,9 @@ namespace API.Controllers
         [HttpGet]
         public Task<IList<Photo>> Get() 
             => _photoManager.GetAsync();
+            
         [HttpGet("{id}")]
-        public Task<FileContentResult> Get(Guid id) 
+        public Task<FileContentResult> Get(Guid id)
             => _photoManager.FindAsync(id);
     }
 }

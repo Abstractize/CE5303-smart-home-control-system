@@ -1,4 +1,7 @@
+using API.Hubs;
+using API.Hubs.Implementation;
 using Data.Context;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,11 +15,13 @@ builder.Services.AddControllers();
 builder.Services.AddSignalR();
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(
-        "CorsPolicy",
-        builder => builder.AllowAnyOrigin()
+    options.AddDefaultPolicy(
+        builder => builder
             .AllowAnyMethod()
-            .AllowAnyHeader());
+            .AllowAnyHeader()
+            .SetIsOriginAllowed(origin => true)
+            .AllowCredentials()
+    );
 });
 
 builder.Services.AddEndpointsApiExplorer();
@@ -40,14 +45,16 @@ else
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+app.UseCors();
 
 app.UseAuthentication();
 app.UseIdentityServer();
 app.UseAuthorization();
-app.UseCors("CorsPolicy");
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller}/{action=Index}/{id?}");
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+    endpoints.MapHub<DoorHub>("/door/hub");
+});
 
 app.Run();

@@ -1,6 +1,8 @@
 ﻿using Business.Managers.Contracts;
 using Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using API.Hubs;
 
 namespace API.Controllers
 {
@@ -16,11 +18,11 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public Task<IList<Door>> Get()
+        public Task Get()
             => _doorManager.GetAsync();
 
         [HttpGet("{id}")]
-        public Task<Door> Get(Guid id) 
+        public Task Get(Guid id)
             => _doorManager.FindAsync(id);
     }
 }
