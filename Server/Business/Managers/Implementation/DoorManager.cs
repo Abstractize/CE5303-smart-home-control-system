@@ -1,4 +1,5 @@
-﻿using API.Hubs;
+﻿using System;
+using API.Hubs;
 using API.Hubs.Contracts;
 using API.Hubs.Implementation;
 using Business.Managers.Contracts;
@@ -25,6 +26,17 @@ namespace Business.Managers.Implementation
             _doorAccessor = doorAccessor;
             _hubContext = hubContext;
             _timerService = timerService;
+        }
+
+        public async Task<Door> GetValue()
+        {
+            Persistence.Door item = await _doorAccessor.FindAsync(i => true);
+
+            Console.WriteLine("Entering Dylib");
+            Boolean isOpen = await _hardwareService.IsDoorOpen(item.Pin);
+            Console.WriteLine("Exiting Dylib");
+
+            return new Door().LoadFrom(item, isOpen);
         }
 
         public async Task FindAsync(Guid id)

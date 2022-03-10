@@ -15,10 +15,10 @@
 #define HIGH 1
 #define LOW 0
 
-int pinMode(int pin, char *mode);
-int digitalWrite(int pin, int value);
-int digitalRead(int pin);
-int enablePin(int pin);
-int disablePin(int pin);
+int pinMode(int pin, char *mode, char * sysPath, void (*print)(char *));
+int digitalWrite(int pin, int value, char * sysPath, void (*print)(char *));
+int digitalRead(int pin, char * sysPath, void (*print)(char *));
+int enablePin(int pin, char * sysPath, void (*print)(char *));
+int disablePin(int pin, char * sysPath, void (*print)(char *));
 
 #endif

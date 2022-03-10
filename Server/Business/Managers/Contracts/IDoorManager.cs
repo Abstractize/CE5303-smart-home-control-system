@@ -6,5 +6,6 @@ namespace Business.Managers.Contracts
     {
         Task FindAsync(Guid id);
         Task GetAsync();
+        Task<Door> GetValue();
     }
 }

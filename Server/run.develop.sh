@@ -1,5 +1,5 @@
 cd ./API
 
-dotnet restore -r linux-x64 --self-contained false
-dotnet build -r linux-x64 --self-contained false
-dotnet run -r linux-x64 --self-contained false
+dotnet restore -r linux-x64 --no-self-contained
+dotnet build -c Debug -r linux-x64 --no-self-contained
+dotnet run -c Debug -r linux-x64 --no-self-contained

@@ -1,4 +1,5 @@
-﻿using Business.Managers.Contracts;
+﻿using System.Threading.Tasks;
+using Business.Managers.Contracts;
 using Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
@@ -16,6 +17,10 @@ namespace API.Controllers
         {
             _doorManager = doorManager;
         }
+
+        [HttpGet("value")]
+        public Task<Door> GetValue()
+            => _doorManager.GetValue();
 
         [HttpGet]
         public Task Get()
