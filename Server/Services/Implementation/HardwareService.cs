@@ -1,10 +1,14 @@
-﻿using Services.Contracts;
+﻿using Data.Accessors.Contracts;
+using Services.Contracts;
 using System.Runtime.InteropServices;
 
 namespace Services.Implementation
 {
     public class HardwareService : IHardwareService
     {
+        private static Boolean isConfigured = false;
+        private const String INPUT = "in", OUTPUT = "out";
+
         public enum HardwareStatus
         {
             OFF = 0,
@@ -12,22 +16,36 @@ namespace Services.Implementation
         }
 
         [DllImport("libHardwareController")]
-        static extern int enablePin(int pin);
+        private static extern int enablePin(int pin);
         [DllImport("libHardwareController")]
-        static extern int disablePin(int pin);
+        private static extern int disablePin(int pin);
         [DllImport("libHardwareController")]
-        static extern int pinMode(int pin, string mode);
+        private static extern int pinMode(int pin, string mode);
         [DllImport("libHardwareController")]
-        static extern int digitalWrite(int pin, int value);
+        private static extern int digitalWrite(int pin, int value);
         [DllImport("libHardwareController")]
-        static extern int digitalRead(int pin);
+        private static extern int digitalRead(int pin);
 
-
-        public Task<Boolean> IsLightOn(int pin)
+        public HardwareService(IDoorAccessor doorAccessor, ILightAccessor lightAccessor)
         {
-            bool result = digitalRead(pin) == (int) HardwareStatus.ON;
-            return Task.FromResult(result);
+            if (!isConfigured) 
+            {
+                lightAccessor.GetAsync().Result.ToList().ForEach(light => {
+                    enablePin(light.Pin);
+                    pinMode(light.Pin, OUTPUT);
+                });
+
+                doorAccessor.GetAsync().Result.ToList().ForEach(door => {
+                    enablePin(door.Pin);
+                    pinMode(door.Pin, INPUT);
+                });
+
+                isConfigured = true;
+            }
         }
+
+        public Task<Boolean> IsLightOn(int pin) 
+            => IsItemActive(pin);
 
         public Task<int> SwitchLight(int pin, HardwareStatus value)
         {
@@ -35,41 +53,13 @@ namespace Services.Implementation
             return Task.FromResult(result);
         }
 
-        public Task<int> EnablePin(int pin)
+        public Task<Boolean> IsDoorOpen(int pin) 
+            => IsItemActive(pin);
 
+        private Task<Boolean> IsItemActive(int pin)
         {
-            int _enablePin = enablePin(pin);
-            return Task.FromResult(_enablePin);
-        }
-
-        public Task<int> DisablePin(int pin)
-        {
-            int _disablePin = disablePin(pin);
-            return Task.FromResult(_disablePin);
-        }
-
-        public Task<int> PinMode(int pin, string mode)
-        {
-            int _pinMode = pinMode(pin, mode);
-            return Task.FromResult(_pinMode);
-        }
-
-        public Task<int> DigitalWrite(int pin, int value)
-        {
-            int _digitalWrite = digitalWrite(pin, value);
-            return Task.FromResult(_digitalWrite);
-        }
-
-        public Task<int> DigitalRead(int pin)
-        {
-            int _digitalRead = digitalRead(pin);
-            return Task.FromResult(_digitalRead);
-        }
-        
-        public Task<Boolean> IsDoorOpen(int pin)
-        {
-            Random random = new Random();
-            return Task.FromResult(random.Next(2) == 1);
+            bool result = digitalRead(pin) == (int) HardwareStatus.ON;
+            return Task.FromResult(result);
         }
         
     }

@@ -2,10 +2,13 @@
 
 int enablePin(int pin)
 {
-    char *_pin; // GPIO [1 ... 31] --> 2 digit numbers
+    char *sysPath = getenv("SYS_PATH");
+    char *_pin;
+    char *path = malloc(sizeof(char) * 512);
     sprintf(_pin, "%d", pin);
+    sprintf(path, "%s/export",sysPath);
 
-    int fd = open("/sys/class/gpio/export", O_WRONLY);
+    int fd = open(path, O_WRONLY);
 
     if (fd == -1)
     {
@@ -18,7 +21,7 @@ int enablePin(int pin)
         perror("Error enabling pin in GPIO configuration file ...");
         exit(1);
     }
-
+    free(path);
     close(fd);
 
     return 0;
@@ -26,10 +29,13 @@ int enablePin(int pin)
 
 int disablePin(int pin)
 {
-    char *_pin; // GPIO [1 ... 31] --> 2 digit numbers
+    char *sysPath = getenv("SYS_PATH");
+    char *_pin;
+    char *path = malloc(sizeof(char) * 512);
     sprintf(_pin, "%d", pin);
+    sprintf(path, "%s/unexport",sysPath);
 
-    int fd = open("/sys/class/gpio/unexport", O_WRONLY);
+    int fd = open(path, O_WRONLY);
 
     if (fd == -1)
     {
@@ -42,7 +48,7 @@ int disablePin(int pin)
         perror("Error disabling pin in GPIO configuration file ...");
         exit(1);
     }
-
+    free(path);
     close(fd);
 
     return 0;
@@ -50,8 +56,9 @@ int disablePin(int pin)
 
 int pinMode(int pin, char *mode)
 {
-    char *filePath = malloc(sizeof(char) * 512); // GPIO [1 ... 31] --> 2 digit numbers
-    sprintf(filePath, "/sys/class/gpio/gpio%d/direction", pin);
+    char *sysPath = getenv("SYS_PATH");
+    char *filePath = malloc(sizeof(char) * 512);
+    sprintf(filePath, "%s/gpio%d/direction", sysPath, pin);
 
     int fd = open(filePath, O_WRONLY);
 
@@ -75,9 +82,10 @@ int pinMode(int pin, char *mode)
 
 int digitalWrite(int pin, int value)
 {
+    char *sysPath = getenv("SYS_PATH");
     char *filePath = malloc(sizeof(char) * 512);
     char *pinValue;
-    sprintf(filePath, "/sys/class/gpio/gpio%d/value", pin);
+    sprintf(filePath, "%s/gpio%d/value", sysPath, pin);
     sprintf(pinValue, "%d", value);
 
     int fd = open(filePath, O_WRONLY);
@@ -102,10 +110,11 @@ int digitalWrite(int pin, int value)
 
 int digitalRead(int pin)
 {
+    char *sysPath = getenv("SYS_PATH");
     int value;
     char *filePath = malloc(sizeof(char) * 512);
     char *pinValue;
-    sprintf(filePath, "/sys/class/gpio/gpio%d/value", pin);
+    sprintf(filePath, "%s/gpio%d/value", sysPath, pin);
     int fd = open(filePath, O_RDONLY);
 
     if (fd == -1)
