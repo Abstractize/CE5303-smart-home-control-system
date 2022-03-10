@@ -1,8 +1,8 @@
 #include "raspGPIO.h"
 
-int enablePin(int pin, char *sysPath, void (*print)(char *))
+int enablePin(int pin)
 {
-    print("Enabling pin...");
+    char *sysPath = getenv("SYS_PATH");
     char *_pin;
     char *path = malloc(sizeof(char) * 512);
     sprintf(_pin, "%d", pin);
@@ -27,8 +27,9 @@ int enablePin(int pin, char *sysPath, void (*print)(char *))
     return 0;
 }
 
-int disablePin(int pin, char *sysPath, void (*print)(char *))
+int disablePin(int pin)
 {
+    char *sysPath = getenv("SYS_PATH");
     char *_pin;
     char *path = malloc(sizeof(char) * 512);
     sprintf(_pin, "%d", pin);
@@ -53,8 +54,9 @@ int disablePin(int pin, char *sysPath, void (*print)(char *))
     return 0;
 }
 
-int pinMode(int pin, char *mode, char *sysPath, void (*print)(char *))
+int pinMode(int pin, char *mode)
 {
+    char *sysPath = getenv("SYS_PATH");
     char *filePath = malloc(sizeof(char) * 512);
     sprintf(filePath, "%s/gpio%d/direction", sysPath, pin);
 
@@ -78,8 +80,9 @@ int pinMode(int pin, char *mode, char *sysPath, void (*print)(char *))
     return 0;
 }
 
-int digitalWrite(int pin, int value, char *sysPath, void (*print)(char *))
+int digitalWrite(int pin, int value)
 {
+    char *sysPath = getenv("SYS_PATH");
     char *filePath = malloc(sizeof(char) * 512);
     char *pinValue;
     sprintf(filePath, "%s/gpio%d/value", sysPath, pin);
@@ -105,9 +108,10 @@ int digitalWrite(int pin, int value, char *sysPath, void (*print)(char *))
     return 0;
 }
 
-int digitalRead(int pin, char *sysPath, void (*print)(char *))
+int digitalRead(int pin)
 {
     int value;
+    char *sysPath = getenv("SYS_PATH");
     char *filePath = malloc(sizeof(char) * 512);
     char *pinValue;
     sprintf(filePath, "%s/gpio%d/value", sysPath, pin);

@@ -1,29 +1,44 @@
 #include "include/raspGPIO.h"
 #include <stdio.h>
+#include <time.h>
 #include <stdlib.h>
-
-call(char * value)
-{
-    printf(value);
-}
 
 int main(int argc, char const *argv[])
 {
-    char * sysPath = getenv("SYS_PATH")
+    srand(time(NULL));
+    char *sysPath = getenv("SYS_PATH");
     printf("%s\n", sysPath);
-    int pin = 1;
-    enablePin(pin, sysCall, call);
-    printf("pin enabled ...\n");
-    pinMode(pin, OUTPUT, sysCall, call);
-    printf("pin set as OUTPUT ...\n");
-    digitalWrite(pin, HIGH, sysCall, call);
-    printf("pin value set to HIGH ...\n");
-    printf("pin %d : %d\n",pin, digitalRead(pin, sysCall, call));
-    digitalWrite(pin, LOW, sysCall, call);
-    printf("pin value set to LOW ...\n");
-    printf("pin %d : %d\n",pin, digitalRead(pin, sysCall, call));
-    disablePin(pin, sysCall, call);
-    printf("pin disabled ...\n");
+    for (int pin = 1; pin < 10; pin++)
+    {
+        // Enable pin
+        enablePin(pin);
+        printf("pin enabled ...\n");
+        
+        // Set pin mode
+        if (pin % 2 == 0)
+        {
+            pinMode(pin, OUTPUT);
+            printf("pin set as OUTPUT ...\n");
+        } else {
+            pinMode(pin, INPUT);
+            printf("pin set as INPUT ...\n");
+        }
 
+        // Write on outputs
+        if (pin % 2 == 0)
+        {
+            int value = HIGH; //rand() % 2;
+            //printf("%d\n", value);
+            digitalWrite(pin, value);
+            printf("pin value set to %d ...\n", value);
+        }
+        
+        // Read pin value
+        printf("pin %d : %d\n", pin, digitalRead(pin));
+        
+        // Disable pin
+        disablePin(pin);
+        printf("pin disabled ...\n");
+    }
     return 0;
 }
