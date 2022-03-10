@@ -48,7 +48,6 @@ namespace Services.Implementation
                 lights.ToList().ForEach(light =>
                 {
                     enablePin(light.Pin, sysPath, delegateInstance);
-                    Console.WriteLine($"Pin Enabled: {light.Pin}");
                     pinMode(light.Pin, OUTPUT, sysPath, delegateInstance);
                 });
 

@@ -2,7 +2,6 @@
 
 int enablePin(int pin, char *sysPath, void (*print)(char *))
 {
-    print("Enabling pin...");
     char *_pin;
     char *path = malloc(sizeof(char) * 512);
     sprintf(_pin, "%d", pin);
