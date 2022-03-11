@@ -13,6 +13,17 @@ export const doorReducer = (state = initialState, action) => {
                 data: state.data,
                 error: action.error
             };
+        case DoorActionType.SUCCESS:
+            return {
+                error: state.error,
+                data: action.data
+            };
+        case DoorActionType.CLOSE:
+            return {
+                error: state.error,
+                data: state.data,
+                message: action.message
+            };
         default:
             return state;
     }

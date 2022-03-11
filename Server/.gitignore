@@ -812,3 +812,6 @@ obj/
 # File format used in conjunction with any archive format to provide redundancy and data recovery, most often in newsgroup distribution of binary files.
 *.par
 *.par2
+
+# Vscode local settings
+**/.vscode/

@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { View, Text } from 'react-native';
 import { actionCreator as doorActionCreators } from '../store/action-creators/door-action-creators';
 
 const Door = (props) => {
-    props.start();
-    props.get();
 
+    useEffect(() => {
+        props.getStream();
+    });
+    
     console.log(props.data)
 
     return (

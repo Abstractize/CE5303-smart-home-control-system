@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Services.Contracts;
 using Services.Implementation;
 
@@ -8,7 +10,6 @@ public static class Program
     {
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IHardwareService, HardwareService>();
-        services.AddScoped<ITimerService, TimerService>();
 
         return services;
     }

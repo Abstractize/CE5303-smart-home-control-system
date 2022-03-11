@@ -4,8 +4,11 @@ project(HardwareController VERSION 0.1.0)
 include(CTest)
 enable_testing()
 
-add_library(HardwareController SHARED src/Hello.cpp)
+add_library(HardwareController SHARED src/raspGPIO.c)
+
+target_include_directories(${PROJECT_NAME} PRIVATE src include)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
+
 include(CPack)

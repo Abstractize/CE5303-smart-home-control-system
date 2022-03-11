@@ -4,7 +4,7 @@ namespace Business.Managers.Contracts
 {
     public interface IDoorManager
     {
-        Task FindAsync(Guid id);
-        Task GetAsync();
+        Task<Door> FindAsync(Guid id);
+        Task<IList<Door>> GetAsync();
     }
 }
