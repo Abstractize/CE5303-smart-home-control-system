@@ -8,8 +8,6 @@ namespace Services.Implementation
     {
         private static Boolean isConfigured = false;
         private const String INPUT = "in", OUTPUT = "out";
-        private static CallbackDelegate delegateInstance;
-        private readonly String sysPath;
         
         public enum HardwareStatus
         {
@@ -17,18 +15,16 @@ namespace Services.Implementation
             ON = 1,
         }
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate void CallbackDelegate(IntPtr value);
         [DllImport("libHardwareController")]
-        private static extern int enablePin(int pin, string sysPath, CallbackDelegate print);
+        private static extern int enablePin(int pin); //, CallbackDelegate print);
         [DllImport("libHardwareController")]
-        private static extern int disablePin(int pin, string sysPath, CallbackDelegate print);
+        private static extern int disablePin(int pin); //, CallbackDelegate print);
         [DllImport("libHardwareController")]
-        private static extern int pinMode(int pin, string mode, string sysPath, CallbackDelegate print);
+        private static extern int pinMode(int pin, string mode); //, string sysPath, CallbackDelegate print);
         [DllImport("libHardwareController")]
-        private static extern int digitalWrite(int pin, int value, string sysPath, CallbackDelegate print);
+        private static extern int digitalWrite(int pin, int value); //, string sysPath, CallbackDelegate print);
         [DllImport("libHardwareController")]
-        private static extern int digitalRead(int pin, string sysPath, CallbackDelegate print);
+        private static extern int digitalRead(int pin); //, string sysPath, CallbackDelegate print);
 
         private readonly IDoorAccessor _doorAccessor;
         private readonly ILightAccessor _lightAccessor;
@@ -36,8 +32,6 @@ namespace Services.Implementation
         {
             _doorAccessor = doorAccessor;
             _lightAccessor = lightAccessor;
-            delegateInstance = Print;
-            sysPath = Environment.GetEnvironmentVariable("SYS_PATH");
         }
 
         private async Task StartService()
@@ -47,16 +41,17 @@ namespace Services.Implementation
                 var lights = await _lightAccessor.GetAsync();
                 lights.ToList().ForEach(light =>
                 {
-                    enablePin(light.Pin, sysPath, delegateInstance);
+                    enablePin(light.Pin); //, sysPath, delegateInstance);
                     Console.WriteLine($"Pin Enabled: {light.Pin}");
-                    pinMode(light.Pin, OUTPUT, sysPath, delegateInstance);
+                    pinMode(light.Pin, OUTPUT); //, sysPath, delegateInstance);
                 });
 
                 var doors = await _doorAccessor.GetAsync();
                 doors.ToList().ForEach(door =>
                 {
-                    enablePin(door.Pin, sysPath, delegateInstance);
-                    pinMode(door.Pin, INPUT, sysPath, delegateInstance);
+                    enablePin(door.Pin); //, sysPath, delegateInstance);
+                    Console.WriteLine($"Pin Enabled: {door.Pin}");
+                    pinMode(door.Pin, INPUT); //, sysPath, delegateInstance);
                 });
 
                 isConfigured = true;
@@ -69,7 +64,7 @@ namespace Services.Implementation
         public async Task<int> SwitchLight(int pin, HardwareStatus value)
         {
             await this.StartService();
-            int result = digitalWrite(pin, (int)value, sysPath, delegateInstance);
+            int result = digitalWrite(pin, (int)value); //, sysPath, delegateInstance);
             return result;
         }
 
@@ -79,7 +74,7 @@ namespace Services.Implementation
         private async Task<Boolean> IsItemActive(int pin)
         {
             await this.StartService();
-            bool result = digitalRead(pin, sysPath, delegateInstance) == (int)HardwareStatus.ON;
+            bool result = digitalRead(pin) == (int)HardwareStatus.ON;
             return result;
         }
 

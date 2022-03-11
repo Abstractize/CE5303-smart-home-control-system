@@ -86,7 +86,7 @@ int digitalWrite(int pin, int value)
 {
     char *sysPath = getenv("SYS_PATH");
     char *filePath = malloc(sizeof(char) * 512);
-    char *pinValue;
+    char *pinValue = malloc(sizeof(char) * 5);
     sprintf(filePath, "%s/gpio%d/value", sysPath, pin);
     sprintf(pinValue, "%d", value);
 
@@ -105,6 +105,7 @@ int digitalWrite(int pin, int value)
     }
 
     close(fd);
+    free(pinValue);
     free(filePath);
 
     return 0;
@@ -112,10 +113,9 @@ int digitalWrite(int pin, int value)
 
 int digitalRead(int pin)
 {
-    int value;
     char *sysPath = getenv("SYS_PATH");
     char *filePath = malloc(sizeof(char) * 512);
-    char *pinValue;
+    char *pinValue = malloc(sizeof(char) * 2);
     sprintf(filePath, "%s/gpio%d/value", sysPath, pin);
     int fd = open(filePath, O_RDONLY);
 
@@ -131,9 +131,10 @@ int digitalRead(int pin)
         exit(1);
     }
 
-    value = atoi(pinValue);
+    int value = atoi(pinValue);
 
     close(fd);
+    free(pinValue);
     free(filePath);
 
     return value;
