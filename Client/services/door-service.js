@@ -16,8 +16,8 @@ const getStream = () => {
     return connection.stream("GetAsync");
 };;
 const findStream = (id) => connection.stream("FindAsync", id);
-const get = () => axios.get(`API/door/`);
-const find = (id) => axios.get(`API/door/${id}`);
+const get = () => axios.get(`API/door`);
+const find = (id) => axios.get(`API/door${id}`);
 
 
 export const doorService = { getStream, findStream, get, find };
