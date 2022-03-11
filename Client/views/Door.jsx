@@ -6,9 +6,20 @@ import { actionCreator as doorActionCreators } from '../store/action-creators/do
 const Door = (props) => {
 
     useEffect(() => {
+        props.connect();
+
+        return () => {
+            props.closeStream();
+        }
+    }, []);
+
+    useEffect(() => {
         props.getStream();
-    });
-    
+    }, [props.connection]);
+
+    useEffect(() => {
+        console.log(props.data);
+    }, [props.data]);
 
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -18,5 +29,5 @@ const Door = (props) => {
 }
 
 export default connect(
-    (state) => ({...state.door}), ({...doorActionCreators})
+    (state) => ({ ...state.door }), ({ ...doorActionCreators })
 )(Door);
