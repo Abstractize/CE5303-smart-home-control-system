@@ -64,9 +64,9 @@ namespace Business.Managers.Implementation
         {
             IList<Persistence.Door> items = await _doorAccessor.GetAsync();
 
-            while (true)
+            while (!cancellationToken.IsCancellationRequested)
             {
-                //cancellationToken.ThrowIfCancellationRequested();
+                cancellationToken.ThrowIfCancellationRequested();
 
                 yield return items.Select(async item => new Door()
                     .LoadFrom(item, await _hardwareService.IsDoorOpen(item.Pin)))

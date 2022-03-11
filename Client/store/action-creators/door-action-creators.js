@@ -9,18 +9,16 @@ export const actionCreator = {
             const connection = doorService.startConnection();
             connection.start().then(
                 () => {
-                    console.assert("Door Connection Started");
                     dispatch({ type: DoorActionType.CONNECT, connection: connection });
                 }).catch((err) => {
                     dispatch({ type: DoorActionType.FAILURE, error: err });
-                    console.error(err);
                 });
         }
     },
     getStream: () => async (dispatch, getState) => {
         const appState = getState();
 
-        if (appState && appState.door) {
+        if (appState && appState.door && appState.door.connection) {
             doorService.getStream(appState.door.connection).subscribe({
                 next: (data) => {
                     console.log(data);
@@ -37,10 +35,10 @@ export const actionCreator = {
             });
         }
     },
-    closeStream: () => async (dispatch, getState) => {
+    disconnect: () => async (dispatch, getState) => {
         const appState = getState();
 
-        if (appState && appState.door) {
+        if (appState && appState.door && appState.door.connection) {
             doorService.getStream(appState.door.connection).dispose(item => {
                 dispatch({ type: DoorActionType.CLOSE, message: item });
             });

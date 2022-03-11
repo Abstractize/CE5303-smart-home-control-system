@@ -4,12 +4,11 @@ import { View, Text } from 'react-native';
 import { actionCreator as doorActionCreators } from '../store/action-creators/door-action-creators';
 
 const Door = (props) => {
-
     useEffect(() => {
         props.connect();
 
         return () => {
-            props.closeStream();
+            props.disconnect();
         }
     }, []);
 
@@ -18,8 +17,14 @@ const Door = (props) => {
     }, [props.connection]);
 
     useEffect(() => {
-        console.log(props.data);
+        if(props.data)
+            console.log(props.data);
     }, [props.data]);
+
+    useEffect(() => {
+        if(props.error)
+            console.error(props.error);
+    }, [props.error]);
 
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
