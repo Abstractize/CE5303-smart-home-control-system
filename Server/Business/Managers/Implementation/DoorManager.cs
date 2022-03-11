@@ -1,14 +1,8 @@
-﻿using System;
-using API.Hubs;
-using API.Hubs.Contracts;
-using API.Hubs.Implementation;
-using Business.Managers.Contracts;
+﻿using Business.Managers.Contracts;
 using Business.Models;
 using Data.Accessors.Contracts;
-using Microsoft.AspNetCore.SignalR;
 using Models;
 using Services.Contracts;
-using Services.Implementation;
 using Persistence = Data.Models;
 
 namespace Business.Managers.Implementation
@@ -17,56 +11,32 @@ namespace Business.Managers.Implementation
     {
         private readonly IHardwareService _hardwareService;
         private readonly IDoorAccessor _doorAccessor;
-        private readonly IHubContext<DoorHub, IDoorHub> _hubContext;
-        private readonly ITimerService _timerService;
 
-        public DoorManager(IHardwareService hardwareService, IDoorAccessor doorAccessor, IHubContext<DoorHub, IDoorHub> hubContext, ITimerService timerService)
+        public DoorManager(IHardwareService hardwareService, IDoorAccessor doorAccessor)
         {
             _hardwareService = hardwareService;
             _doorAccessor = doorAccessor;
-            _hubContext = hubContext;
-            _timerService = timerService;
         }
 
-        public async Task<Door> GetValue()
+        public async Task<Door> FindAsync(Guid id)
         {
-            Persistence.Door item = await _doorAccessor.FindAsync(i => true);
+            Persistence.Door item = await _doorAccessor.FindAsync(i => i.Id == id);
 
-            Console.WriteLine("Entering Dylib");
+            if (item == null)
+                throw new Exception($"{id} not found.");
+
             Boolean isOpen = await _hardwareService.IsDoorOpen(item.Pin);
-            Console.WriteLine("Exiting Dylib");
 
             return new Door().LoadFrom(item, isOpen);
         }
 
-        public async Task FindAsync(Guid id)
-        {
-            Persistence.Door item = await _doorAccessor.FindAsync(i => i.Id == id);
-
-            WebSocketTimer timer = await _timerService.CreateTimer(async () =>
-            {
-                if (item == null)
-                    throw new Exception($"{id} not found.");
-
-                Door response = new Door()
-                    .LoadFrom(item, await _hardwareService.IsDoorOpen(item.Pin));
-
-                await _hubContext.Clients.All.FindAsync(response);
-            });
-        }
-
-        public async Task GetAsync()
+        public async Task<IList<Door>> GetAsync()
         {
             IList<Persistence.Door> items = await _doorAccessor.GetAsync();
 
-            WebSocketTimer timer = await _timerService.CreateTimer(async () =>
-            {
-                var response = items.Select(async item => new Door()
-                    .LoadFrom(item, await _hardwareService.IsDoorOpen(item.Pin)))
-                    .Select(item => item.Result).ToList();
-
-                await _hubContext.Clients.All.GetAsync(response);
-            });
+            return items.Select(async item => new Door()
+                .LoadFrom(item, await _hardwareService.IsDoorOpen(item.Pin)))
+                .Select(item => item.Result).ToList();
         }
     }
 }

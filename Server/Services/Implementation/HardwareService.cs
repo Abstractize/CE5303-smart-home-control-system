@@ -16,15 +16,15 @@ namespace Services.Implementation
         }
 
         [DllImport("libHardwareController")]
-        private static extern int enablePin(int pin); //, CallbackDelegate print);
+        private static extern int enablePin(int pin);
         [DllImport("libHardwareController")]
-        private static extern int disablePin(int pin); //, CallbackDelegate print);
+        private static extern int disablePin(int pin);
         [DllImport("libHardwareController")]
-        private static extern int pinMode(int pin, string mode); //, string sysPath, CallbackDelegate print);
+        private static extern int pinMode(int pin, string mode);
         [DllImport("libHardwareController")]
-        private static extern int digitalWrite(int pin, int value); //, string sysPath, CallbackDelegate print);
+        private static extern int digitalWrite(int pin, int value);
         [DllImport("libHardwareController")]
-        private static extern int digitalRead(int pin); //, string sysPath, CallbackDelegate print);
+        private static extern int digitalRead(int pin);
 
         private readonly IDoorAccessor _doorAccessor;
         private readonly ILightAccessor _lightAccessor;
@@ -32,6 +32,7 @@ namespace Services.Implementation
         {
             _doorAccessor = doorAccessor;
             _lightAccessor = lightAccessor;
+            StartService().Wait();
         }
 
         private async Task StartService()
@@ -41,17 +42,15 @@ namespace Services.Implementation
                 var lights = await _lightAccessor.GetAsync();
                 lights.ToList().ForEach(light =>
                 {
-                    enablePin(light.Pin); //, sysPath, delegateInstance);
-                    Console.WriteLine($"Pin Enabled: {light.Pin}");
-                    pinMode(light.Pin, OUTPUT); //, sysPath, delegateInstance);
+                    enablePin(light.Pin);
+                    pinMode(light.Pin, OUTPUT);
                 });
 
                 var doors = await _doorAccessor.GetAsync();
                 doors.ToList().ForEach(door =>
                 {
-                    enablePin(door.Pin); //, sysPath, delegateInstance);
-                    Console.WriteLine($"Pin Enabled: {door.Pin}");
-                    pinMode(door.Pin, INPUT); //, sysPath, delegateInstance);
+                    enablePin(door.Pin);
+                    pinMode(door.Pin, INPUT);
                 });
 
                 isConfigured = true;
@@ -61,26 +60,19 @@ namespace Services.Implementation
         public Task<Boolean> IsLightOn(int pin)
             => IsItemActive(pin);
 
-        public async Task<int> SwitchLight(int pin, HardwareStatus value)
+        public Task<int> SwitchLight(int pin, HardwareStatus value)
         {
-            await this.StartService();
-            int result = digitalWrite(pin, (int)value); //, sysPath, delegateInstance);
-            return result;
+            int result = digitalWrite(pin, (int)value);
+            return Task.FromResult(result);
         }
 
         public Task<Boolean> IsDoorOpen(int pin)
             => IsItemActive(pin);
 
-        private async Task<Boolean> IsItemActive(int pin)
+        private Task<Boolean> IsItemActive(int pin)
         {
-            await this.StartService();
             bool result = digitalRead(pin) == (int)HardwareStatus.ON;
-            return result;
-        }
-
-        private static void Print(IntPtr value)
-        {
-            Console.WriteLine($"Dynamic Library says: {Marshal.PtrToStringAuto(value)}");
+            return Task.FromResult(result);
         }
     }
 }

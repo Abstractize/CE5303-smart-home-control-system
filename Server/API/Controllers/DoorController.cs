@@ -1,9 +1,7 @@
-﻿using System.Threading.Tasks;
-using Business.Managers.Contracts;
+﻿using Business.Managers.Contracts;
 using Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
-using API.Hubs;
+
 
 namespace API.Controllers
 {
@@ -18,16 +16,13 @@ namespace API.Controllers
             _doorManager = doorManager;
         }
 
-        [HttpGet("value")]
-        public Task<Door> GetValue()
-            => _doorManager.GetValue();
-
         [HttpGet]
-        public Task Get()
+        public Task<IList<Door>> Get()
             => _doorManager.GetAsync();
 
         [HttpGet("{id}")]
-        public Task Get(Guid id)
+        public Task<Door> Get(Guid id)
             => _doorManager.FindAsync(id);
+        
     }
 }

@@ -27,8 +27,6 @@ builder.Services.AddCors(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Environment.AddEnvironmentVariables();
-
 var app = builder.Build();
 
 app.Services.AddMigrationAndSeed();

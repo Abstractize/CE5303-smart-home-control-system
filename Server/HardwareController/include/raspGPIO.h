@@ -15,7 +15,6 @@
 #define HIGH 1
 #define LOW 0
 
-//int setup();
 int pinMode(int pin, char *mode);
 int digitalWrite(int pin, int value);
 int digitalRead(int pin);
