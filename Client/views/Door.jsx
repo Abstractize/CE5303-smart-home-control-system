@@ -9,7 +9,6 @@ const Door = (props) => {
         props.getStream();
     });
     
-    console.log(props.data)
 
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
