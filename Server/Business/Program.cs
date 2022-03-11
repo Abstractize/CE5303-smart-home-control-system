@@ -8,6 +8,7 @@ public static class Program
     {
         services.AddScoped<IAuthManager, AuthManager>();
         services.AddScoped<IDoorManager, DoorManager>();
+        services.AddScoped<ILightManager, LightManager>();
         services.AddScoped<IPhotoManager, PhotoManager>();
 
         return services;

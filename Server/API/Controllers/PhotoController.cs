@@ -6,7 +6,6 @@ using Models;
 namespace API.Controllers
 {
     [Route("[controller]")]
-    [Authorize]
     [ApiController]
     public class PhotoController : ControllerBase
     {
