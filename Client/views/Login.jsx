@@ -26,7 +26,7 @@ const Login = (props) => {
          props.navigation.navigate("Home");
       } 
       else if (props.error) {
-         setError(props.error.message);
+         setError(props.error.response.data);
       }
    }, [props.isLoading]);
    

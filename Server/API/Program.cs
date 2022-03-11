@@ -1,4 +1,5 @@
 using API.Hubs;
+using API.Middlewares;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -43,6 +44,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseCors();
+app.UseExceptions();
 
 app.UseAuthentication();
 app.UseIdentityServer();
