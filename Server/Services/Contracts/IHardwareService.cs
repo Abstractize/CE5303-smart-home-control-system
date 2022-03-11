@@ -1,4 +1,4 @@
-﻿using static Services.Implementation.HardwareService;
+﻿using Services.Constants;
 
 namespace Services.Contracts
 {

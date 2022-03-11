@@ -1,6 +1,5 @@
 ﻿using Presentation = Models;
 using Persistance = Data.Models;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Business.Models;
 

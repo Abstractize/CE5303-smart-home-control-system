@@ -1,4 +1,5 @@
 ﻿using Data.Accessors.Contracts;
+using Services.Constants;
 using Services.Contracts;
 using System.Runtime.InteropServices;
 
@@ -8,12 +9,6 @@ namespace Services.Implementation
     {
         private static Boolean isConfigured = false;
         private const String INPUT = "in", OUTPUT = "out";
-        
-        public enum HardwareStatus
-        {
-            OFF = 0,
-            ON = 1,
-        }
 
         [DllImport("libHardwareController")]
         private static extern int enablePin(int pin);
