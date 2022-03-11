@@ -3,10 +3,10 @@ import { StyleSheet } from 'react-native';
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Provider } from "react-redux";
+import configureStore from './store';
+
 import Login from './views/Login';
-import Home from './views/Home';
-import Door from './views/Door'
-import configureStore from './store'
+import Navigation from "./navigation/Navigation";
 
 const Stack = createNativeStackNavigator();
 const Store = configureStore();
@@ -16,9 +16,8 @@ export default function App() {
     <Provider store={Store}>
       <NavigationContainer>
         <Stack.Navigator>
+          <Stack.Screen name="Main" component={Navigation} options={{ title: '', headerTransparent: true }} />
           <Stack.Screen name="Login" component={Login} options={{ title: '', headerTransparent: true }} />
-          <Stack.Screen name="Door" component={Door} />
-          <Stack.Screen name="Home" component={Home} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

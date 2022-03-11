@@ -23,7 +23,7 @@ const Login = (props) => {
 
    useEffect(() => {
       if (props.user) {
-         props.navigation.navigate("Home");
+         props.navigation.navigate("Main");
       } 
       else if (props.error) {
          setError(props.error.message);
