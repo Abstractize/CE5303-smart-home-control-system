@@ -29,7 +29,7 @@ int main(int argc, char const *argv[])
         {
             int value = HIGH; //rand() % 2;
             //printf("%d\n", value);
-            digitalWrite(pin, value);
+            digitalWrite(pin, 1);
             printf("pin value set to %d ...\n", value);
         }
         

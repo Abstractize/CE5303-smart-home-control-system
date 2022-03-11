@@ -3,7 +3,7 @@
 int enablePin(int pin)
 {
     char *sysPath = getenv("SYS_PATH");
-    char *_pin;
+    char *_pin = malloc(sizeof(char) * 2);
     char *path = malloc(sizeof(char) * 512);
     sprintf(_pin, "%d", pin);
     sprintf(path, "%s/export", sysPath);
@@ -21,8 +21,9 @@ int enablePin(int pin)
         perror("Error enabling pin in GPIO configuration file ...");
         exit(1);
     }
-    free(path);
     close(fd);
+    free(path);
+    free(_pin);
 
     return 0;
 }
@@ -30,7 +31,7 @@ int enablePin(int pin)
 int disablePin(int pin)
 {
     char *sysPath = getenv("SYS_PATH");
-    char *_pin;
+    char *_pin = malloc(sizeof(char) * 2);
     char *path = malloc(sizeof(char) * 512);
     sprintf(_pin, "%d", pin);
     sprintf(path, "%s/unexport", sysPath);
@@ -48,9 +49,10 @@ int disablePin(int pin)
         perror("Error disabling pin in GPIO configuration file ...");
         exit(1);
     }
-    free(path);
     close(fd);
-
+    free(path);
+    free(_pin);
+    
     return 0;
 }
 
