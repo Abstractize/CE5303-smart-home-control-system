@@ -5,6 +5,7 @@ using Models;
 using Models.Exceptions;
 using Services.Constants;
 using Services.Contracts;
+using System.Runtime.CompilerServices;
 using Persistence = Data.Models;
 
 namespace Business.Managers.Implementation
@@ -32,9 +33,21 @@ namespace Business.Managers.Implementation
             return new Light().LoadFrom(item, isOpen);
         }
 
-        public IAsyncEnumerable<Light> FindStreamAsync(Guid id, CancellationToken cancellationToken, int delay)
+        public async IAsyncEnumerable<Light> FindStreamAsync(Guid id, [EnumeratorCancellation] CancellationToken cancellationToken, int delay)
         {
-            throw new NotImplementedException();
+            Persistence.Light item = await _lightAccessor.FindAsync(i => i.Id == id);
+            if (item == null)
+                throw new NotFoundException(id);
+
+            while (!cancellationToken.IsCancellationRequested)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+
+                Boolean isOpen = await _hardwareService.IsDoorOpen(item.Pin);
+                yield return new Light().LoadFrom(item);
+
+                await Task.Delay(delay, cancellationToken);
+            }
         }
 
         public async Task<IList<Light>> GetAsync()
@@ -46,9 +59,20 @@ namespace Business.Managers.Implementation
                 .Select(item => item.Result).ToList();
         }
 
-        public IAsyncEnumerable<IList<Light>> GetStreamAsync(CancellationToken cancellationToken, int delay)
+        public async IAsyncEnumerable<IList<Light>> GetStreamAsync([EnumeratorCancellation] CancellationToken cancellationToken, int delay)
         {
-            throw new NotImplementedException();
+            IList<Persistence.Light> items = await _lightAccessor.GetAsync();
+
+            while (!cancellationToken.IsCancellationRequested)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+
+                yield return items.Select(async item => new Light()
+                    .LoadFrom(item, await _hardwareService.IsDoorOpen(item.Pin)))
+                    .Select(item => item.Result).ToList();
+
+                await Task.Delay(delay, cancellationToken);
+            }
         }
 
         public async Task UpdateAsync(Guid id, Light item)

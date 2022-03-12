@@ -1,25 +1,25 @@
-import { DoorActionType } from "../actions/door-actions";
-import { state as initialState } from "../states/door-state";
+import { LightActionType } from "../actions/light-actions";
+import { state as initialState } from "../states/light-state";
 
-export const doorReducer = (state = initialState, action) => {
+export const lightReducer = (state = initialState, action) => {
     switch (action.type) {
-        case DoorActionType.CONNECT:
+        case LightActionType.CONNECT:
             return {
                 ...state,
                 connection: action.connection,
             }
-        case DoorActionType.REQUEST:
+        case LightActionType.REQUEST:
             return {
                 ...state,
                 data: action.data,
                 subscriber: action.subscriber,
             };
-        case DoorActionType.FAILURE:
+        case LightActionType.FAILURE:
             return {
                 ...state,
                 error: action.error,
             };
-        case DoorActionType.CLOSE:
+        case LightActionType.CLOSE:
             return {
                 ...state,
                 message: action.message,

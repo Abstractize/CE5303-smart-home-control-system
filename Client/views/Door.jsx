@@ -17,7 +17,7 @@ const Door = (props) => {
     }, [props.connection]);
 
     useEffect(() => {
-        if(props.data)
+        if(props.data !== [])
             console.log(props.data);
     }, [props.data]);
 

@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import configureStore from './store';
 
 import Login from './views/Login';
-import Navigation from "./navigation/Navigation";
+import Navigation from "./router/Navigation";
 import Loading from "./views/Loading";
 
 const Stack = createNativeStackNavigator();
