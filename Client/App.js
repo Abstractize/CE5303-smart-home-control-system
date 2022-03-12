@@ -8,6 +8,10 @@ import configureStore from './store';
 import Login from './views/Login';
 import Navigation from "./router/Navigation";
 import Loading from "./views/Loading";
+import axios from 'axios';
+import { API_URL } from '@env';
+
+axios.defaults.baseURL = API_URL;
 
 const Stack = createNativeStackNavigator();
 const Store = configureStore();

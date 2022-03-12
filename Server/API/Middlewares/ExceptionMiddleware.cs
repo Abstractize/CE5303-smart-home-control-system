@@ -31,7 +31,8 @@ namespace API.Middlewares
                             Exception? ex = exceptionHandlerPathFeature?.Error;
                             int cd = StatusCodes.Status500InternalServerError;
                             context.Response.StatusCode = cd;
-                            await context.Response.WriteAsync(ex.Message);
+                            String message = ex != null? ex.Message : "Internal Server Error";
+                            await context.Response.WriteAsync(message);
                             break;
                     }
                 });

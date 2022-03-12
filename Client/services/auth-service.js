@@ -1,19 +1,18 @@
 import axios from 'axios';
-import { API_URL } from '@env';
 
 const find = (id) =>
-    axios.get(`${API_URL}${id}`);
+    axios.get(`$auth/${id}`);
 
 const get = () =>
-    axios.get(API_URL);
+    axios.get(`auth`);
 
 const add = (value) =>
-    axios.post(API_URL, value);
+    axios.post(`auth`, value);
 
-const update = (value) =>
-    axios.put(API_URL, value);
+const update = (id, value) =>
+    axios.put(`auth/${id}`, value);
 
-const remove = (value) =>
-    axios.delete(API_URL, value);
+const remove = (id) =>
+    axios.delete(`auth/${id}`);
 
 export const authService = { find, get, add, update, remove };

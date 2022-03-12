@@ -52,7 +52,7 @@ app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {
-  endpoints.MapGet("/", () => "");
+    endpoints.MapGet("/", () => "");
     endpoints.MapControllers();
     endpoints.MapHub<DoorHub>("/door/hub");
     endpoints.MapHub<LightHub>("/light/hub");

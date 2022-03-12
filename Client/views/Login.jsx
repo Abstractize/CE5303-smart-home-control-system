@@ -31,10 +31,12 @@ const Login = (props) => {
 	useEffect(() => {
 		if (props.user) {
 			props.navigation.navigate("Main");
-		} else if (props.error) {
-			setError(props.error.response.data);
 		}
-	}, [props.isLoading]);
+	}, [props.user]);
+
+	useEffect(() => {
+		setError(props.error?.response.data);
+	}, [props.error]);
 
 	return (
 		<View style={styles.content}>

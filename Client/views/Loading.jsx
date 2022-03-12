@@ -1,11 +1,12 @@
 import { View, Text, ActivityIndicator, StyleSheet } from "react-native";
 import React, { useEffect, useState } from "react";
+import { API_URL } from '@env';
 
 export default function Loading(props) {
 	const [error, setError] = useState(false);
 
 	useEffect(() => {
-		fetch("https://localhost:5000/")
+		fetch(API_URL)
 			.then((response) => {
 				if (response.status === 200) {
 					props.navigation.navigate("Login");
