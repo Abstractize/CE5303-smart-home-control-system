@@ -15,7 +15,7 @@ export default function Navigation() {
     <Tap.Navigator initialRouteName='Home'>
       <Tap.Screen 
         name='Home' 
-        component={Home} 
+        component={(props) => <Home {...props}/>} 
         options={{ headerShown: false, tabBarIcon: ({color, size}) => (
             <Icon name='home' color={color} size={size} />
           )
@@ -23,7 +23,7 @@ export default function Navigation() {
       />
       <Tap.Screen 
         name='Light' 
-        component={Light} 
+        component={(props) => <Light {...props}/>} 
         options={{
           tabBarLabel: 'Lights',
           headerShown: false,
@@ -34,7 +34,7 @@ export default function Navigation() {
       />
       <Tap.Screen 
         name='Doors' 
-        component={Door} 
+        component={(props) => <Door {...props} />} 
         options={{ headerShown: false, tabBarIcon: ({ color, size }) => (
           <Icon name='door-closed' color={color} size={size} />
         )
@@ -42,7 +42,7 @@ export default function Navigation() {
       />
       <Tap.Screen 
         name='Photos' 
-        component={Photo} 
+        component={(props) => <Photo {...props}/>} 
         options={{ headerShown: false, tabBarIcon: ({ color, size }) => (
           <Icon name='images' color={color} size={size} />
         )

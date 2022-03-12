@@ -3,15 +3,14 @@ import axios from 'axios';
 import { API_URL } from '@env';
 
 const startConnection = () => new HubConnectionBuilder()
-    .withUrl(`${API_URL}door/hub/`, {
+    .withUrl(`${API_URL}light/hub/`, {
         skipNegotiation: true,
         transport: HttpTransportType.WebSockets
     }).build();
-
 const getStream = (connection) => connection.stream("Get");
 const findStream = (connection, id) => connection.stream("Find", id);
-const disconnect = (connection) => connection.stop();
-const get = () => axios.get(`${API_URL}door`);
-const find = (id) => axios.get(`${API_URL}door${id}`);
+const get = () => axios.get(`${API_URL}light`);
+const find = (id) => axios.get(`${API_URL}light${id}`);
+const update = (id, value) => axios.put(`${API_URL}light/${id}`, value)
 
-export const doorService = { startConnection, getStream, findStream, get, find, disconnect };
+export const lightService = { startConnection, getStream, findStream, get, find, update };
