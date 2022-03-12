@@ -54,6 +54,7 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
     endpoints.MapHub<DoorHub>("/door/hub");
+    endpoints.MapHub<LightHub>("/light/hub");
 });
 
 app.Run();

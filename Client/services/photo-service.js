@@ -1,15 +1,13 @@
 import axios from 'axios';
+import { API_URL } from '@env';
 
-const url = "https://localhost:5000/photo";
+const find = (id) =>
+    (`${API_URL}photo${id}`);
 
-function find(id) {
-    return (`${url}/${id}`);
-}
-function get() {
-    return axios.get(url);
-}
-function add(value) {
-    return axios.post(url, value);
-}
+const get = () =>
+    axios.get(`${API_URL}photo/`);
 
-export const photoService = {find, get, add};
+const add = (value) =>
+    axios.post(`${API_URL}photo/`, value);
+
+export const photoService = { find, get, add };

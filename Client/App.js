@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import configureStore from './store';
 
 import Login from './views/Login';
-import Navigation from "./navigation/Navigation";
+import Navigation from "./router/Navigation";
 
 const Stack = createNativeStackNavigator();
 const Store = configureStore();
@@ -16,8 +16,8 @@ export default function App() {
     <Provider store={Store}>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Login" component={Login} options={{ title: '', headerTransparent: true }} />
           <Stack.Screen name="Main" component={Navigation} options={{ title: '', headerTransparent: true }} />
+          <Stack.Screen name="Login" component={Login} options={{ title: '', headerTransparent: true }} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
