@@ -7,6 +7,7 @@ using Models;
 using Services.Contracts;
 using Persistence = Data.Models;
 using Data.Accessors.Contracts;
+using Models.Exceptions;
 
 namespace Business.Managers.Implementation
 {
@@ -23,7 +24,7 @@ namespace Business.Managers.Implementation
         {
             Persistence.Photo item = await _photoAccessor.FindAsync(i => i.Id == id);
             if (item == null)
-                throw new Exception($"{id} not found.");
+                throw new NotFoundException(id);
             return item.LoadTo();
         }
 

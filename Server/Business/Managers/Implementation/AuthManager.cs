@@ -2,6 +2,7 @@
 using Business.Models;
 using Microsoft.AspNetCore.Identity;
 using Models;
+using Models.Exceptions;
 using Services.Contracts;
 using Persistence = Data.Models;
 
@@ -21,7 +22,7 @@ namespace Business.Managers.Implementation
                 .FindByEmailAsync(userInfo.Email);
 
             if (user == null)
-                throw new Exception($"Email {userInfo.Email} not found");
+                throw new NotFoundException<string>(userInfo.Email, "User with email '{0}' not found");
 
             SignInResult result = await _authService
                 .CheckPasswordSignInAsync(user, userInfo.Password);
@@ -29,7 +30,7 @@ namespace Business.Managers.Implementation
             if (result.Succeeded)
                 return new User().LoadFrom(user);
 
-            throw new Exception($"Incorrect Password");
+            throw new IncorrectPasswordException(userInfo.Email);
         }
 
         public async Task LogOutAsync(User user)

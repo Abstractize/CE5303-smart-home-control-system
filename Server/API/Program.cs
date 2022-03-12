@@ -1,7 +1,5 @@
 using API.Hubs;
-using API.Hubs.Implementation;
-using Data.Context;
-using Microsoft.AspNetCore.Cors.Infrastructure;
+using API.Middlewares;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -46,6 +44,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseCors();
+app.UseExceptions();
 
 app.UseAuthentication();
 app.UseIdentityServer();

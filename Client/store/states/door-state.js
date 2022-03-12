@@ -1,4 +1,5 @@
 export const state = {
     data: [],
-    error: null
+    error: null,
+    connection: null,
 }
