@@ -13,13 +13,13 @@ builder.Services.AddControllers();
 builder.Services.AddSignalR();
 builder.Services.AddCors(options =>
 {
-    options.AddDefaultPolicy(
-        builder => builder
-            .AllowAnyMethod()
-            .AllowAnyHeader()
-            .SetIsOriginAllowed(origin => true)
-            .AllowCredentials()
-    );
+  options.AddDefaultPolicy(
+      builder => builder
+          .AllowAnyMethod()
+          .AllowAnyHeader()
+          .SetIsOriginAllowed(origin => true)
+          .AllowCredentials()
+  );
 });
 
 builder.Services.AddEndpointsApiExplorer();
@@ -31,13 +31,13 @@ app.Services.AddMigrationAndSeed();
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-    app.UseMigrationsEndPoint();
+  app.UseSwagger();
+  app.UseSwaggerUI();
+  app.UseMigrationsEndPoint();
 }
 else
 {
-    app.UseHsts();
+  app.UseHsts();
 }
 
 app.UseHttpsRedirection();
@@ -52,8 +52,9 @@ app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {
-    endpoints.MapControllers();
-    endpoints.MapHub<DoorHub>("/door/hub");
+  endpoints.MapGet("/", () => "");
+  endpoints.MapControllers();
+  endpoints.MapHub<DoorHub>("/door/hub");
 });
 
 app.Run();
