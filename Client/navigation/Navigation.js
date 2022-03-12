@@ -1,9 +1,7 @@
 import React from 'react';
-import { Image } from 'react-native'
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import IconMaterial from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Home from '../views/Home';
 import Door from '../views/Door';

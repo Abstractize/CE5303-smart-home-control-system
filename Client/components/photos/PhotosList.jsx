@@ -4,24 +4,11 @@ import React from 'react'
 import ImageCard from './ImageCard';
 
 export default function PhotosList(props) {
-  const dataList = [
-    {
-      name: 'ddd',
-      id: 1,
-    },
-    {
-      name: 'ggg',
-      id: 2,
-    },
-    {
-      name: 'ooo',
-      id: 3,
-    }
-  ]; 
+
   return (
     <View>
       <FlatList
-      data={dataList}
+      data={props.dataList}
       numColumns={2}
       showsVerticalScrollIndicator={false}
       keyExtractor={(data) => String(data.id)}

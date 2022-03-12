@@ -5,11 +5,6 @@ import { actionCreator as doorActionCreators } from '../store/action-creators/do
 
 const Door = (props) => {
 
-    useEffect(() => {
-        props.getStream();
-    });
-    
-
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <Text>Door Screen</Text>
