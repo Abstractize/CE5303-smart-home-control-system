@@ -9,8 +9,8 @@ const startConnection = () => new HubConnectionBuilder()
     }).build();
 const getStream = (connection) => connection.stream("Get");
 const findStream = (connection, id) => connection.stream("Find", id);
-const get = () => axios.get(`${API_URL}light`);
-const find = (id) => axios.get(`${API_URL}light${id}`);
-const update = (id, value) => axios.put(`${API_URL}light/${id}`, value)
+const get = () => axios.get(`light`);
+const find = (id) => axios.get(`light${id}`);
+const update = (id, value) => axios.put(`light/${id}`, value)
 
 export const lightService = { startConnection, getStream, findStream, get, find, update };

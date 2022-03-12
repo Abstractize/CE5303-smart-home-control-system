@@ -11,7 +11,7 @@ const startConnection = () => new HubConnectionBuilder()
 const getStream = (connection) => connection.stream("Get");
 const findStream = (connection, id) => connection.stream("Find", id);
 const disconnect = (connection) => connection.stop();
-const get = () => axios.get(`${API_URL}door`);
-const find = (id) => axios.get(`${API_URL}door${id}`);
+const get = () => axios.get(`door`);
+const find = (id) => axios.get(`door/${id}`);
 
 export const doorService = { startConnection, getStream, findStream, get, find, disconnect };

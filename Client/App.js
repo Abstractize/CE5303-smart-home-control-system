@@ -7,6 +7,11 @@ import configureStore from './store';
 
 import Login from './views/Login';
 import Navigation from "./router/Navigation";
+import Loading from "./views/Loading";
+import axios from 'axios';
+import { API_URL } from '@env';
+
+axios.defaults.baseURL = API_URL;
 
 const Stack = createNativeStackNavigator();
 const Store = configureStore();
@@ -16,8 +21,9 @@ export default function App() {
     <Provider store={Store}>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Main" component={Navigation} options={{ title: '', headerTransparent: true }} />
-          <Stack.Screen name="Login" component={Login} options={{ title: '', headerTransparent: true }} />
+          <Stack.Screen name="Loading" component={Loading} options={{ title: '', headerTransparent: true }} />
+          <Stack.Screen name="Login" component={Login} options={{ title: '', headerTransparent: true, headerShown: false }} />
+          <Stack.Screen name="Main" component={Navigation} options={{ title: '', headerTransparent: true}} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
