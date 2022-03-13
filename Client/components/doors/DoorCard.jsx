@@ -28,7 +28,7 @@ export default function DoorCard(props) {
 						</View>
 						<View style={styles.state}>
 							<Text style={styles.text}>
-								{capitalize(props.door.isOpen.toString())}
+								{props.door.isOpen ? "Open" : "Closed"}
 							</Text>
 						</View>
 					</View>
