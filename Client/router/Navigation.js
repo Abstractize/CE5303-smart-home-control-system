@@ -12,7 +12,7 @@ const Tap = createBottomTabNavigator();
 
 export default function Navigation() {
   return (
-    <Tap.Navigator initialRouteName='Home'>
+    <Tap.Navigator initialRouteName='Doors'>
       <Tap.Screen 
         name='Home' 
         component={(props) => <Home {...props}/>} 
