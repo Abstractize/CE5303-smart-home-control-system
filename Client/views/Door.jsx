@@ -19,10 +19,6 @@ const Door = (props) => {
 	}, [props.connection]);
 
 	useEffect(() => {
-		if (props.data !== []) console.log(props.data);
-	}, [props.data]);
-
-	useEffect(() => {
 		if (props.error) console.error(props.error);
 	}, [props.error]);
 
@@ -40,7 +36,8 @@ const styles = StyleSheet.create({
 	content: {
 		height: "100%",
 		paddingVertical: "10%",
-		marginTop: 50,
+		paddingTop: 80,
+		backgroundColor: "#35435e",
 	},
 	doors_container: {
 		height: "83%",
@@ -51,6 +48,7 @@ const styles = StyleSheet.create({
 		marginBottom: 30,
 		fontSize: 28,
 		fontWeight: "bold",
+		color: "white",
 	},
 });
 
