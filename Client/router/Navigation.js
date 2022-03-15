@@ -12,40 +12,59 @@ const Tap = createBottomTabNavigator();
 
 export default function Navigation() {
   return (
-    <Tap.Navigator initialRouteName='Home'>
+    <Tap.Navigator  initialRouteName='Doors' screenOptions={({ route }) => ({
+      headerShown: false,
+      tabBarStyle: {
+      height: 70,
+      paddingHorizontal: 5,
+      paddingTop: 0,
+      backgroundColor: '#232e42',
+      position: 'absolute',
+      borderTopWidth: 0,
+      },
+    })}
+    >
       <Tap.Screen 
         name='Home' 
         component={(props) => <Home {...props}/>} 
-        options={{ headerShown: false, tabBarIcon: ({color, size}) => (
-            <Icon name='home' color={color} size={size} />
-          )
+        options={{ tabBarLabel: '', headerShown: false, tabBarIcon: ({color}) => (
+            <Icon name='home' color={color} size={30} />
+          ),
+          tabBarActiveTintColor: '#35bbb4',
+          tabBarInactiveTintColor: 'white',
         }} 
       />
       <Tap.Screen 
         name='Light' 
         component={(props) => <Light {...props}/>} 
         options={{
-          tabBarLabel: 'Lights',
+          tabBarLabel: '',
           headerShown: false,
-          tabBarIcon: ({color, size}) => (
-            <Icon name='lightbulb' color={color} size={size} />
-          )
+          tabBarIcon: ({color}) => (
+            <Icon name='lightbulb' color={color} size={30} />
+          ),
+          tabBarActiveTintColor: '#35bbb4',
+          tabBarInactiveTintColor: 'white',
         }}
       />
       <Tap.Screen 
         name='Doors' 
         component={(props) => <Door {...props} />} 
-        options={{ headerShown: false, tabBarIcon: ({ color, size }) => (
-          <Icon name='door-closed' color={color} size={size} />
-        )
+        options={{ tabBarLabel: '', headerShown: false, tabBarIcon: ({ color}) => (
+          <Icon name='door-closed' color={color} size={30} />
+        ),
+        tabBarActiveTintColor: '#35bbb4',
+        tabBarInactiveTintColor: 'white',
       }}
       />
       <Tap.Screen 
         name='Photos' 
         component={(props) => <Photo {...props}/>} 
-        options={{ headerShown: false, tabBarIcon: ({ color, size }) => (
-          <Icon name='images' color={color} size={size} />
-        )
+        options={{ tabBarLabel: '', headerShown: false, tabBarIcon: ({ color}) => (
+          <Icon name='images' color={color} size={30} />
+        ),
+        tabBarActiveTintColor: '#35bbb4',
+        tabBarInactiveTintColor: 'white',
       }}
       />
     </Tap.Navigator>
