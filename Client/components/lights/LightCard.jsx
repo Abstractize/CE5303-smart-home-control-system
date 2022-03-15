@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Switch } from "react-native";
 import React from "react";
 
-import Icon from "react-native-vector-icons/FontAwesome5";
+import Icon from "react-native-vector-icons/Fontisto";
 
 export default function LightCard(props) {
 	return (
@@ -10,9 +10,9 @@ export default function LightCard(props) {
 				<View style={styles.bgStyles}>
 					<View style={styles.icon}>
 						<Icon
-							name="lightbulb"
-							color={props.light.isOn ? "yellow" : "white"}
-							size={25}
+							name="day-sunny"
+							color={props.light.isOn ? "yellow" : "#232e42"}
+							size={35}
 						/>
 					</View>
 					<View style={styles.name}>
@@ -20,9 +20,9 @@ export default function LightCard(props) {
 					</View>
 					<View style={styles.state}>
 						<Switch
-							trackColor={{ false: "#767577", true: "#81b0ff" }}
-							thumbColor={props.light.isOn ? "#f5dd4b" : "#f4f3f4"}
-							ios_backgroundColor="#3e3e3e"
+							trackColor={{ false: "#232e42", true: "#232e42" }}
+							thumbColor={props.light.isOn ? "#fff" : "#fff"}
+							ios_backgroundColor="#232e42"
 							onValueChange={() =>
 								props.changeSwitch(props.light.id, {
 									...props.light,
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		borderRadius: 15,
 		height: "100%",
-		backgroundColor: "black",
+		backgroundColor: "#35bbb4",
 	},
 	icon: {
 		textAlign: "center",
@@ -64,7 +64,9 @@ const styles = StyleSheet.create({
 		width: "50%",
 	},
 	state: {
-		textAlign: "center",
+		flex: 1,
+		justifyContent: "center",
+		alignItems: "center",
 		width: "25%",
 	},
 	textContainer: {
@@ -72,7 +74,7 @@ const styles = StyleSheet.create({
 	},
 	text: {
 		lineHeight: 16,
-		fontSize: 16,
+		fontSize: 19,
 		fontWeight: "bold",
 		color: "white",
 	},
