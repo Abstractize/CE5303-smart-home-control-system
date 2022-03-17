@@ -12,9 +12,9 @@ namespace Data.Migrations
     internal static MigrationBuilder SeedInitialData(this MigrationBuilder migrationBuilder)
     {
       migrationBuilder.AddUserData(new Dictionary<User, String>(){
-                { new User { Name = "Juanito", Email = "email@email.com" }, "password" }
-            });
-
+        { new User { Name = "Juanito", Email = "email@email.com" }, "password" }
+      });
+      /*
       String[] photos = Directory.GetFiles("./Images");
       photos.ToList().ForEach(photo =>
       {
@@ -24,7 +24,7 @@ namespace Data.Migrations
           FileName = Path.GetFileNameWithoutExtension(photo),
           Data = File.ReadAllBytes(photo)
         });
-      });
+      });*/
 
       migrationBuilder.AddRoom(
           roomName: "Kitchen",

@@ -1,30 +1,68 @@
-import { View, Text, Pressable, StyleSheet } from 'react-native'
-import React, { useEffect } from 'react'
+import { Modal, View, Text, Pressable, StyleSheet } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { actionCreator } from '../store/action-creators/photo-action-creators';
 import { connect } from 'react-redux';
+import { Video } from 'expo-av';
 
 import PhotosList from '../components/photos/PhotosList';
 
 function Photo(props) {
+  const video = React.useRef(null);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [url, setUrl] = useState('');
 
   useEffect(() => {
-    props.getPhotos();
-  }, [])
-  
+    //props.getPhotos();
+  }, []);
+
+  useEffect(() => {
+    if(props.video !== null)
+      setUrl(props.video.url);
+    console.log(video);
+  }, [props.video]);
+
+  function onClick() {
+    setModalVisible(true);
+    props.getStreamUrl();
+  }
+
   return (
-    <View style={styles.content}>
-      <View style={styles.gallery_container}>
-        <Text style={styles.gallery}>Gallery</Text>
-        <PhotosList dataList={props.photo} />
-      </View>
-      <View style={styles.button_container}>
-        <Pressable style={styles.button} onPress={onClick} >
-          <Icon name="camera" color="#ffff" size={25}/>
-          <Text style={styles.text_button}>Take a Picture</Text>
-        </Pressable>
+    
+  <Video
+    ref={video}
+    source={{
+      uri: "http://qthttp.apple.com.edgesuite.net/1010qwoeiuryfg/sl.m3u8",
+    }} 
+    shouldPlay
+    resizeMode="contain"
+  />/*
+    <View>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={!props.isVideoLoading && modalVisible}
+        onRequestClose={() => {
+          setModalVisible(false);
+        }}
+      >
+        
+        
+      </Modal>
+      <View style={styles.content}>
+        <View style={styles.gallery_container}>
+          <Text style={styles.gallery}>Gallery</Text>
+          <PhotosList dataList={props.photo} />
+        </View>
+        <View style={styles.button_container}>
+          <Pressable style={styles.button} onPress={onClick} >
+            <Icon name="camera" color="#ffff" size={25} />
+            <Text style={styles.text_button}>Take a Picture</Text>
+          </Pressable>
+        </View>
       </View>
     </View>
+*/
   )
 }
 
@@ -37,7 +75,7 @@ const styles = StyleSheet.create({
   gallery_container: {
     height: '83%'
   },
-  gallery : {
+  gallery: {
     textAlign: 'center',
     marginTop: 10,
     marginBottom: 30,
@@ -69,10 +107,6 @@ const styles = StyleSheet.create({
   },
 });
 
-function onClick () {
-  console.log('Button Press');
-}
-
 export default connect(
-  state => ({...state.photo}), ({...actionCreator})
+  state => ({ ...state.photo }), ({ ...actionCreator })
 )(Photo);

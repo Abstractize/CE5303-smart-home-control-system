@@ -7,5 +7,6 @@ namespace Business.Managers.Contracts
     {
         Task<FileContentResult> FindAsync(Guid id);
         Task<IList<Photo>> GetAsync();
+        Task AddAsync();
     }
 }
