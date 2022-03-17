@@ -8,16 +8,33 @@ using Services.Contracts;
 using Persistence = Data.Models;
 using Data.Accessors.Contracts;
 using Models.Exceptions;
+using OpenCvSharp;
 
 namespace Business.Managers.Implementation
 {
     public class PhotoManager : IPhotoManager
     {
+        private readonly ICameraService _cameraService;
         private readonly IPhotoAccessor _photoAccessor;
 
-        public PhotoManager(IPhotoAccessor photoAccessor)
+        public PhotoManager(ICameraService cameraService, IPhotoAccessor photoAccessor)
         {
+            _cameraService = cameraService;
             _photoAccessor = photoAccessor;
+        }
+
+        public async Task AddAsync()
+        {
+            Byte[] picData = await _cameraService.TakePicture();
+            if (picData == null)
+                throw new PictureException();
+
+            await _photoAccessor.AddAsync(new Persistence.Photo
+            {
+                Id = Guid.NewGuid(),
+                FileName = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss"),
+                Data = picData
+            });
         }
 
         public async Task<FileContentResult> FindAsync(Guid id)

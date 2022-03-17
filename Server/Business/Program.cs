@@ -10,6 +10,7 @@ public static class Program
         services.AddScoped<IDoorManager, DoorManager>();
         services.AddScoped<ILightManager, LightManager>();
         services.AddScoped<IPhotoManager, PhotoManager>();
+        services.AddScoped<IVideoManager, VideoManager>();
 
         return services;
     }

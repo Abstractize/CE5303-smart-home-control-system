@@ -1,5 +1,4 @@
 using Business.Managers.Contracts;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 
@@ -23,5 +22,9 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public Task<FileContentResult> Get(Guid id)
             => _photoManager.FindAsync(id);
+
+        [HttpPost]
+        public Task Post()
+             => _photoManager.AddAsync();
     }
 }
