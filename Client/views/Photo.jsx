@@ -1,53 +1,34 @@
 import { Modal, View, Text, Pressable, StyleSheet } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { actionCreator } from '../store/action-creators/photo-action-creators';
 import { connect } from 'react-redux';
-import { Video } from 'expo-av';
 
 import PhotosList from '../components/photos/PhotosList';
 
 function Photo(props) {
-  const video = React.useRef(null);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [url, setUrl] = useState('');
+  useEffect(() => {
+    if(!props.isTakingPicture)
+      props.getPhotos();
+  }, [props.isTakingPicture]);
 
   useEffect(() => {
-    //props.getPhotos();
-  }, []);
-
-  useEffect(() => {
-    if(props.video !== null)
+    if (props.video !== null)
       setUrl(props.video.url);
-    console.log(video);
   }, [props.video]);
 
   function onClick() {
-    setModalVisible(true);
-    props.getStreamUrl();
+    props.addPhoto();
   }
 
   return (
-    
-  <Video
-    ref={video}
-    source={{
-      uri: "http://qthttp.apple.com.edgesuite.net/1010qwoeiuryfg/sl.m3u8",
-    }} 
-    shouldPlay
-    resizeMode="contain"
-  />/*
     <View>
       <Modal
         animationType="slide"
-        transparent={true}
-        visible={!props.isVideoLoading && modalVisible}
-        onRequestClose={() => {
-          setModalVisible(false);
-        }}
+        transparent={false}
+        visible={props.isTakingPicture}
       >
-        
-        
+        <Text>Taking Picture...</Text>
       </Modal>
       <View style={styles.content}>
         <View style={styles.gallery_container}>
@@ -62,7 +43,6 @@ function Photo(props) {
         </View>
       </View>
     </View>
-*/
   )
 }
 
