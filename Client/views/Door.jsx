@@ -6,12 +6,11 @@ import { actionCreator as doorActionCreators } from "../store/action-creators/do
 import DoorsList from "../components/doors/DoorsList";
 
 const Door = (props) => {
-	useEffect(() => {
-		props.connect();
 
-		return () => {
-			props.disconnect();
-		};
+	useEffect(() => {
+		if(!props.connection)
+			props.connect();
+		
 	}, []);
 
 	useEffect(() => {

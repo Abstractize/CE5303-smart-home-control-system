@@ -1,6 +1,6 @@
 import { HttpTransportType, HubConnectionBuilder } from '@microsoft/signalr';
 import axios from 'axios';
-import { API_URL } from '@env';
+import { API_URL } from '../constants';
 
 const startConnection = () => new HubConnectionBuilder()
     .withUrl(`${API_URL}light/hub/`, {

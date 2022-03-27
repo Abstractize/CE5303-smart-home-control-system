@@ -35,7 +35,7 @@ const Login = (props) => {
 	}, [props.user]);
 
 	useEffect(() => {
-		setError(props.error?.response.data);
+		setError(props.error?.response?.data);
 	}, [props.error]);
 
 	return (

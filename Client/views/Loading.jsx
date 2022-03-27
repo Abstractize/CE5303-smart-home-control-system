@@ -1,6 +1,6 @@
 import { View, Text, ActivityIndicator, StyleSheet } from "react-native";
 import React, { useEffect, useState } from "react";
-import { API_URL } from '@env';
+import { API_URL } from '../constants';
 
 export default function Loading(props) {
 	const [error, setError] = useState(false);
@@ -14,7 +14,7 @@ export default function Loading(props) {
 					setError(true);
 				}
 			})
-			.catch((error) => {
+			.catch(() => {
 				setError(true);
 			});
 	}, []);

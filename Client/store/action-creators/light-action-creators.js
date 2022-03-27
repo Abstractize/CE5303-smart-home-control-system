@@ -76,7 +76,6 @@ export const actionCreator = {
             message: item,
             subscriber: null,
           });
-          console.log(item);
         })
         .catch((err) => {
           dispatch({ type: LightActionType.FAILURE, error: err });
