@@ -1,2 +1,3 @@
 export SYS_PATH="/sys/class/gpio"
-dotnet API.dll
+chmod 777 ./API
+./API
