@@ -8,7 +8,6 @@ using Services.Contracts;
 using Persistence = Data.Models;
 using Data.Accessors.Contracts;
 using Models.Exceptions;
-using OpenCvSharp;
 
 namespace Business.Managers.Implementation
 {

@@ -14,49 +14,38 @@ namespace Data.Migrations
       migrationBuilder.AddUserData(new Dictionary<User, String>(){
         { new User { Name = "Juanito", Email = "email@email.com" }, "password" }
       });
-      /*
-      String[] photos = Directory.GetFiles("./Images");
-      photos.ToList().ForEach(photo =>
-      {
-        migrationBuilder.AddData(new Photo
-        {
-          Id = Guid.NewGuid(),
-          FileName = Path.GetFileNameWithoutExtension(photo),
-          Data = File.ReadAllBytes(photo)
-        });
-      });*/
 
       migrationBuilder.AddRoom(
           roomName: "Kitchen",
-          lightPin: 1,
+          lightPin: 3,
           hasDoor: true,
-          doorPin: 2
+          doorPin: 5
       );
 
       migrationBuilder.AddRoom(
           roomName: "Living Room",
-          lightPin: 3,
+          lightPin: 7,
           hasDoor: true,
-          doorPin: 4
+          doorPin: 11
       );
 
       migrationBuilder.AddRoom(
           roomName: "Principal Bedroom",
-          lightPin: 5,
+          lightPin: 13,
           hasDoor: true,
-          doorPin: 6
+          doorPin: 15
       );
 
       migrationBuilder.AddRoom(
           roomName: "Secondary Bedroom",
-          lightPin: 7,
+          lightPin: 19,
           hasDoor: true,
-          doorPin: 8
+          doorPin: 21
       );
 
       migrationBuilder.AddRoom(
           roomName: "Dining Room",
-          lightPin: 9
+          lightPin: 23
       );
 
       return migrationBuilder;

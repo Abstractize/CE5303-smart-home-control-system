@@ -1,6 +1,4 @@
-﻿using OpenCvSharp;
-
-namespace Services.Contracts
+﻿namespace Services.Contracts
 {
     public interface ICameraService
     {

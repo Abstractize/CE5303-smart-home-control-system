@@ -6,12 +6,11 @@ import { actionCreator as lightActionCreators } from "../store/action-creators/l
 import LightsList from "../components/lights/LightsList";
 
 const Light = (props) => {
-	useEffect(() => {
-		props.connect();
 
-		return () => {
-			props.disconnect();
-		};
+	useEffect(() => {
+		if(!props.connection)
+			props.connect();
+		
 	}, []);
 
 	useEffect(() => {

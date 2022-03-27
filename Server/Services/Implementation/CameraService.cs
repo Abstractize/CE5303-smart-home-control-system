@@ -1,27 +1,28 @@
-﻿using OpenCvSharp;
+﻿using System.Net.Http.Headers;
 using Services.Contracts;
 
 namespace Services.Implementation
 {
     public class CameraService : ICameraService
     {
-        private readonly VideoCapture _capture;
         private const String IP = "http://195.77.185.114:8081/oneshotimage1?1647511962";
         public CameraService()
         {
-            _capture = new VideoCapture(IP);
+
         }
 
-        public Task<Byte[]> TakePicture()
+        public async Task<Byte[]> TakePicture()
         {
-            var image = new Mat();
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri(IP);
 
-            _capture.Read(image);
+            client.DefaultRequestHeaders.Accept.Add(
+                new MediaTypeWithQualityHeaderValue("image/jpeg")
+            );
 
-            if (image.Empty())
-                return null;
+            var image = await client.GetByteArrayAsync("");
 
-            return Task.FromResult(image.ToBytes());
+            return image;
         }
 
         public Task<String> GetIP() => Task.FromResult(IP);

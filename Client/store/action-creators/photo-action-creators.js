@@ -9,7 +9,6 @@ export const actionCreator = {
             photoService.get().then(response =>
                 response.data)
                 .then(data => {
-                    console.table(data);
                     dispatch({ type: PhotoActionType.SUCCESS, photo: data.map((photo) => (
                         {...photo, url: photoService.find(photo.id)}
                     )) });

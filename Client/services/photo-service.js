@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { API_URL } from '@env';
 import https from 'https';
+import { API_URL } from '../constants/';
 
 const httpsAgent = new https.Agent({ rejectUnauthorized: false });
 const instance = axios.create({ httpsAgent });
