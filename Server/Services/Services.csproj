@@ -9,18 +9,17 @@
   <Target Name="DebugCMake" BeforeTargets="Compile" Condition=" '$(Configuration)' == 'Debug' And '$(OS)' != 'Windows_NT'">
     <Message Importance="high" Text="Compiling CMake for x86_64" />
     <Exec Command="cmake --no-warn-unused-cli -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -DCMAKE_BUILD_TYPE:STRING=Debug -DCMAKE_C_COMPILER:FILEPATH=/usr/bin/x86_64-linux-gnu-gcc-9 -DCMAKE_CXX_COMPILER:FILEPATH=/usr/bin/x86_64-linux-gnu-g++-9 '-H./../HardwareController' '-B./../HardwareController/build' -G 'Unix Makefiles'" />
-    <Exec Command="cmake --build './../HardwareController/build' --config Debug --target all -j 10 --" />
+    <Exec Command="cmake --build './../HardwareController/build' --config Debug --target all -- -j 10 --" />
   </Target>
 
   <Target Name="ReleaseCMake" BeforeTargets="Compile" Condition=" '$(Configuration)' == 'Release' And '$(OS)' != 'Windows_NT'">
     <Message Importance="high" Text="Compiling CMake for ARM" />
     <Exec Command="cmake --no-warn-unused-cli -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_C_COMPILER:FILEPATH=/usr/bin/arm-linux-gnueabihf-gcc-7 -DCMAKE_CXX_COMPILER:FILEPATH=/usr/bin/x86_64-linux-gnu-g++-9 '-H./../HardwareController' '-B./../HardwareController/build' -G 'Unix Makefiles'" />
-    <Exec Command="cmake --build './../HardwareController/build' --config Release --target all -j 10 --" />
+    <Exec Command="cmake --build './../HardwareController/build' --config Release --target all -- -j 10 --" />
   </Target>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
-    <PackageReference Include="OpenCvSharp4" Version="4.5.5.20211231" />
     <PackageReference Include="System.IO" Version="4.3.0" />
   </ItemGroup>
 
