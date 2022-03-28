@@ -1,0 +1,16 @@
+[Unit]
+Description=SmartHomeControl
+After=network.target
+
+[Service]
+Type=simple
+User=root
+Restart=always
+RestartSec=1
+ExecStart=/home/
+TimeoutStopSec=5
+NonBlocking=yes
+Environment="SYS_PATH=/sys/class/gpio"
+
+[Install]
+WantedBy=multi-user.target
