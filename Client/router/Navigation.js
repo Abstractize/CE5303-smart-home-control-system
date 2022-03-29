@@ -12,7 +12,7 @@ const Tap = createBottomTabNavigator();
 
 export default function Navigation() {
   return (
-    <Tap.Navigator initialRouteName='Home' screenOptions={({ route }) => ({
+    <Tap.Navigator initialRouteName='Light' screenOptions={({ route }) => ({
         headerShown: false,
         tabBarStyle: {
         height: 70,
