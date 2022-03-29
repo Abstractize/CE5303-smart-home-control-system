@@ -9,7 +9,7 @@ Restart=always
 RestartSec=1
 Environment="dotnet=/home/root/dotNet/dotnet"
 Environment="SYS_PATH=/sys/class/gpio"
-ExecStart=${dotnet} /home/root/API/API.dll
+ExecStart=./home/root/API/run.sh
 TimeoutStopSec=5
 NonBlocking=yes
 
