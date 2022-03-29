@@ -5,12 +5,9 @@ After=network.target
 [Service]
 Type=simple
 User=root
-Restart=always
-RestartSec=1
 Environment="dotnet=/home/root/dotNet/dotnet"
 Environment="SYS_PATH=/sys/class/gpio"
-ExecStart=./home/root/API/run.sh
-TimeoutStopSec=5
+ExecStart=sh /home/root/API/run.sh
 NonBlocking=yes
 
 [Install]
