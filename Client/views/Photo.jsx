@@ -5,6 +5,7 @@ import {
 	Pressable,
 	StyleSheet,
 	ScrollView,
+	ActivityIndicator,
 } from "react-native";
 import React, { useEffect } from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -33,7 +34,14 @@ function Photo(props) {
 				transparent={false}
 				visible={props.isTakingPicture}
 			>
-				<Text>Taking Picture...</Text>
+				<View style={styles.take_photo}>
+					<ActivityIndicator
+						size="large"
+						color="#35bbb4"
+						style={styles.spinner}
+					/>
+					<Text style={styles.text_button}>Taking Picture...</Text>
+				</View>
 			</Modal>
 			<View style={styles.content}>
 				<Text style={styles.gallery}>Gallery</Text>
@@ -90,6 +98,18 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 		letterSpacing: 0.55,
 		color: "white",
+	},
+	take_photo: {
+		flex: 1,
+		height: "100%",
+		width: "100%",
+		justifyContent: "center",
+		alignItems: "center",
+		backgroundColor: "#35435e",
+	},
+	spinner: {
+		marginTop: 20,
+		marginBottom: 40,
 	},
 });
 

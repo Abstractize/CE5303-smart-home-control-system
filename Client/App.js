@@ -21,11 +21,6 @@ export default function App() {
     <Provider store={Store}>
       <NavigationContainer>
         <Stack.Navigator>
-        <Stack.Screen
-            name="Main"
-            component={Navigation}
-            options={{ title: "", headerTransparent: true }}
-          />
           <Stack.Screen
             name="Loading"
             component={Loading}
@@ -35,6 +30,11 @@ export default function App() {
             name="Login"
             component={Login}
             options={{ title: "", headerTransparent: true, headerShown: false }}
+          />
+          <Stack.Screen
+            name="Main"
+            component={Navigation}
+            options={{ title: "", headerTransparent: true }}
           />
         </Stack.Navigator>
       </NavigationContainer>
