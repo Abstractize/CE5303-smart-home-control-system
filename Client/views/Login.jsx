@@ -7,6 +7,7 @@ import {
 	StyleSheet,
 	Pressable,
 	Image,
+	ActivityIndicator,
 } from "react-native";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -72,7 +73,13 @@ const Login = (props) => {
 			</View>
 			<View style={styles.button_container}>
 				{props.isLoading ? (
-					<Text>Loading...</Text>
+					<View style={styles.spinner_container}>
+						<ActivityIndicator
+							size="large"
+							color="#35bbb4"
+							style={styles.spinner}
+						/>
+					</View>
 				) : (
 					<Pressable style={styles.button} onPress={formik.handleSubmit}>
 						<Text style={styles.text_button}>LOG IN</Text>
@@ -146,6 +153,16 @@ const styles = StyleSheet.create({
 		fontSize: 18,
 		color: "#fff",
 		marginTop: 5,
+	},
+	spinner_container: {
+		width: "100%",
+		flex: 1,
+		justifyContent: "center",
+		alignItems: "center",
+	},
+	spinner: {
+		marginTop: 20,
+		marginBottom: 40,
 	},
 });
 
