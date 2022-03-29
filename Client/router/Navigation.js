@@ -12,7 +12,17 @@ const Tap = createBottomTabNavigator();
 
 export default function Navigation() {
   return (
-    <Tap.Navigator initialRouteName='Home'>
+    <Tap.Navigator initialRouteName='Home' screenOptions={({ route }) => ({
+        headerShown: false,
+        tabBarStyle: {
+        height: 70,
+        paddingHorizontal: 5,
+        paddingTop: 0,
+        backgroundColor: '#232e42',
+        position: 'absolute',
+        borderTopWidth: 0,
+        },})
+      }>
       <Tap.Screen 
         name='Home' 
         component={(props) => <Home {...props}/>} 
