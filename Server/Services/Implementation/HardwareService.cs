@@ -37,6 +37,7 @@ namespace Services.Implementation
                 var lights = await _lightAccessor.GetAsync();
                 lights.ToList().ForEach(light =>
                 {
+                    disablePin(light.Pin);
                     enablePin(light.Pin);
                     pinMode(light.Pin, OUTPUT);
                 });
@@ -44,6 +45,7 @@ namespace Services.Implementation
                 var doors = await _doorAccessor.GetAsync();
                 doors.ToList().ForEach(door =>
                 {
+                    disablePin(door.Pin);
                     enablePin(door.Pin);
                     pinMode(door.Pin, INPUT);
                 });
