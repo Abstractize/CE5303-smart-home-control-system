@@ -1,5 +1,3 @@
-
-# Enable all pins before initialize
 echo "--> Exporting all GPIO pins ..."
 for pin in 2 3 4 17 27 22 10 9 11
 do
