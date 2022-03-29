@@ -1,13 +1,16 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { actionCreator as lightActionCreators } from "../store/action-creators/light-action-creators";
 
 import LightsList from "../components/lights/LightsList";
 
 const Light = (props) => {
+
 	useEffect(() => {
-		if (!props.connection) props.connect();
+		if(!props.connection)
+			props.connect();
+		
 	}, []);
 
 	useEffect(() => {
@@ -20,10 +23,10 @@ const Light = (props) => {
 
 	return (
 		<View style={styles.content}>
-			<ScrollView style={styles.light_container}>
+			<View style={styles.light_container}>
 				<Text style={styles.light}>Lights State</Text>
 				<LightsList dataList={props.data} onChange={props.switchLight} />
-			</ScrollView>
+			</View>
 		</View>
 	);
 };

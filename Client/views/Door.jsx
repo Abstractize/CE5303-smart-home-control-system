@@ -1,13 +1,16 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { actionCreator as doorActionCreators } from "../store/action-creators/door-action-creators";
 
 import DoorsList from "../components/doors/DoorsList";
 
 const Door = (props) => {
+
 	useEffect(() => {
-		if (!props.connection) props.connect();
+		if(!props.connection)
+			props.connect();
+		
 	}, []);
 
 	useEffect(() => {
@@ -20,10 +23,10 @@ const Door = (props) => {
 
 	return (
 		<View style={styles.content}>
-			<ScrollView style={styles.doors_container}>
+			<View style={styles.doors_container}>
 				<Text style={styles.door}>Doors State</Text>
 				<DoorsList dataList={props.data} />
-			</ScrollView>
+			</View>
 		</View>
 	);
 };
