@@ -3,7 +3,7 @@
 int enablePin(int pin)
 {
     char *sysPath = getenv("SYS_PATH");
-    char *_pin = malloc(sizeof(char) * 2);
+    char *_pin = malloc(sizeof(char) * 5);
     char *path = malloc(sizeof(char) * 512);
     sprintf(_pin, "%d", pin);
     sprintf(path, "%s/export", sysPath);
@@ -31,7 +31,7 @@ int enablePin(int pin)
 int disablePin(int pin)
 {
     char *sysPath = getenv("SYS_PATH");
-    char *_pin = malloc(sizeof(char) * 2);
+    char *_pin = malloc(sizeof(char) * 5);
     char *path = malloc(sizeof(char) * 512);
     sprintf(_pin, "%d", pin);
     sprintf(path, "%s/unexport", sysPath);

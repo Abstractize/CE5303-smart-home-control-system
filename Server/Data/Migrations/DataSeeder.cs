@@ -17,35 +17,35 @@ namespace Data.Migrations
 
       migrationBuilder.AddRoom(
           roomName: "Kitchen",
-          lightPin: 3,
+          lightPin: 2,
           hasDoor: true,
-          doorPin: 5
+          doorPin: 3
       );
 
       migrationBuilder.AddRoom(
           roomName: "Living Room",
-          lightPin: 7,
+          lightPin: 4,
           hasDoor: true,
-          doorPin: 11
+          doorPin: 17
       );
 
       migrationBuilder.AddRoom(
           roomName: "Principal Bedroom",
-          lightPin: 13,
+          lightPin: 27,
           hasDoor: true,
-          doorPin: 15
+          doorPin: 22
       );
 
       migrationBuilder.AddRoom(
           roomName: "Secondary Bedroom",
-          lightPin: 19,
+          lightPin: 10,
           hasDoor: true,
-          doorPin: 21
+          doorPin: 9
       );
 
       migrationBuilder.AddRoom(
           roomName: "Dining Room",
-          lightPin: 23
+          lightPin: 11
       );
 
       return migrationBuilder;
