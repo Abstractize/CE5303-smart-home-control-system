@@ -7,10 +7,11 @@ Type=simple
 User=root
 Restart=always
 RestartSec=1
-ExecStart=/home/
+Environment="dotnet=/home/root/dotNet/dotnet"
+Environment="SYS_PATH=/sys/class/gpio"
+ExecStart=${dotnet} /home/root/API/API.dll
 TimeoutStopSec=5
 NonBlocking=yes
-Environment="SYS_PATH=/sys/class/gpio"
 
 [Install]
 WantedBy=multi-user.target
